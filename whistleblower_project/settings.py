@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # django apps
+    'django.history',
+    'django.login',
+    'django.manage',
+    'django.submit',
+    
+    # all auth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
