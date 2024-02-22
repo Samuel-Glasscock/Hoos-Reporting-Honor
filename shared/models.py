@@ -1,5 +1,7 @@
 from django.db import models
 
+# to import into any module: from shared.models import Report, File
+
 class Report(models.Model):
     class Status(models.TextChoices):
         PENDING = 'PENDING'
