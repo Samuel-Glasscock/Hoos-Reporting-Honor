@@ -39,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # django apps
-    'django.history',
-    'django.login',
-    'django.manage',
-    'django.submit',
+    'history',
+    'login',
+    'manage',
+    'submit',
     
     # all auth
     'allauth',
