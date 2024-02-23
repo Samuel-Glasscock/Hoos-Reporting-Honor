@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # to import into any module: from shared.models import Report, File
 
@@ -31,5 +34,21 @@ class File(models.Model):
     def __str__(self):
         return f'{self.report.id}: {self.file}'
     
+# https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    is_admin = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f'{self.user.username}: {self.is_admin}'
+    
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+        
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
     
     
