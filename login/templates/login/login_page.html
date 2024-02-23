@@ -12,13 +12,15 @@
         <div class="mb-3">
           <h1>Login with Google</h1>
         </div>
-        <form>
+        <form action="{% url 'login:login_request' %}" method="POST">
+          {% csrf_token %}
           <div class="mb-3">
             <input
-              type="email"
+              type="text"
               class="form-control"
-              id="email"
-              placeholder="name@example.com"
+              id="username"
+              name="username"
+              placeholder="Name"
             />
           </div>
           <div class="mb-3">
@@ -26,6 +28,7 @@
               type="password"
               class="form-control"
               id="password"
+              name="password"
               placeholder="Password"
             />
           </div>
