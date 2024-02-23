@@ -13,7 +13,7 @@ def login_request(request):
     if request.method == "POST":
         log.debug("Login view POST")
         print(request.POST)
-        username = request.POST.get("username")
+        username = request.POST.get("email")
         password = request.POST.get("password")
         log.debug("Username: " + username)
         log.debug("Password: " + password)
