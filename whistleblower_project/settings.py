@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'login',
     'manage',
     'submit',
+    'shared',
     
     # all auth
     'allauth',
