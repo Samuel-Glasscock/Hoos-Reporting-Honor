@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    
+    # bootstrap
+    'bootstrap5',
 ]
 
 AUTHENTICATION_BACKENDS = [
