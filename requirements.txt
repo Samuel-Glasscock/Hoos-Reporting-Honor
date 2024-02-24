@@ -3,4 +3,4 @@ gunicorn
 django-heroku
 dj-database-url
 django-allauth
-django-bootstrap5
+django-bootstrap-v5

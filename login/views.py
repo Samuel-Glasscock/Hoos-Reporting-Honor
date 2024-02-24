@@ -4,13 +4,13 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 log = logging.getLogger(__name__)
 
-# Create your views here.
-def home(request):
-    return render(request, 'home.html')
+# # Create your views here.
+# def home(request):
+#     return render(request, 'home.html')
 
-def logout_view(request):
-    logout(request)
-    return redirect('home')
+# def logout_view(request):
+#     logout(request)
+#     return redirect('home')
 
 
 
