@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     
     # bootstrap
     'bootstrap5',
+    'django_bootstrap5',
+    'django-bootstrap-v5',
 ]
 
 AUTHENTICATION_BACKENDS = [
