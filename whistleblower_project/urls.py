@@ -23,4 +23,6 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('manage/', include('manage.urls')),
     path('history/', include('history.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('', include('login.urls'))
 ]
