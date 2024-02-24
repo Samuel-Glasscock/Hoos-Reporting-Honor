@@ -53,11 +53,17 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    
+    # bootstrap
+    'bootstrap5',
 ]
 
 AUTHENTICATION_BACKENDS = [
     # Default backend for Django authentication.
     'django.contrib.auth.backends.ModelBackend',
+    
+    # Custom backend for authenticating users by e-mail.
+    'shared.emailauthenication.EmailBackend',
 
     # Allauth specific authentication methods, such as login by e-mail.
     'allauth.account.auth_backends.AuthenticationBackend',
