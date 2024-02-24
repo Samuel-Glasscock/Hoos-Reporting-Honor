@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os 
 from pathlib import Path
+
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-wq#sfzs8fws)*d@29s66t-9-b%#m4ghekw*vo+%2+r-%im%a3f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'https://django-project-a-22-83574f54a90a.herokuapp.com/']
 
 
 # Application definition
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     
     # django apps
     'history',
@@ -62,6 +65,7 @@ AUTHENTICATION_BACKENDS = [
 
 MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -96,7 +100,12 @@ WSGI_APPLICATION = 'whistleblower_project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True,
+    ),
+    'local': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
@@ -159,3 +168,12 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {'access_type': 'online'},
     }
 }
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+try:
+    if 'HEROKU' in os.environ:
+        import django_heroku
+        django_heroku.settings(locals())
+except ImportError:
+    found = False
