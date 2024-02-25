@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-wq#sfzs8fws)*d@29s66t-9-b%#m4ghekw*vo+%2+r-%im%a3f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'https://django-project-a-22-83574f54a90a.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     
     # bootstrap
     'bootstrap5',
+    # 'django_bootstrap5',
+    # 'django-bootstrap-v5',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -162,7 +164,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # OAuth2 (Google Login)
 # https://docs.allauth.org/en/latest/
 
-SITE_ID = 2 # might need to be changed
+SITE_ID = 3 # might need to be changed
 # LOGIN_REDIRECT_URL :- destination of login page in your urls.py
 LOGIN_REDIRECT_URL = 'home'
 # ACCOUNT_LOGOUT_REDIRECT :- where to redirect when user logout
