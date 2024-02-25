@@ -164,7 +164,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # OAuth2 (Google Login)
 # https://docs.allauth.org/en/latest/
 
-SITE_ID = 2 # might need to be changed
+SITE_ID = 1 # might need to be changed
 # LOGIN_REDIRECT_URL :- destination of login page in your urls.py
 LOGIN_REDIRECT_URL = 'home'
 # ACCOUNT_LOGOUT_REDIRECT :- where to redirect when user logout
