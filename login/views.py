@@ -18,9 +18,20 @@ def login_request(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, "shared:home")
+            return redirect("shared:home")
         return render(request, "shared/404.html")
     return render(request, "shared/404.html")
+
+def google_login_request(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect("admin_home")
+        else:
+            return redirect("shared:home")
+        # if somehow not authenticated, redirect to login page
+    else:
+        return redirect("login:login_view")
+
 def admin_home(request):
     #Add any logic needed here, such as fetching data from the database
     #pass an empty dictionary to the template
