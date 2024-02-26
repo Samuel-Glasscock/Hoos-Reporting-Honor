@@ -18,7 +18,7 @@ def login_request(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("shared:home")
+            return render(request, "shared:home")
         return render(request, "shared/404.html")
     return render(request, "shared/404.html")
 def admin_home(request):
@@ -27,4 +27,3 @@ def admin_home(request):
     context = {}
     return render(request, 'admin_home.html', context)
 
-#Create views here
