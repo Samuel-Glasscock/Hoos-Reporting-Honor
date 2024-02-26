@@ -25,7 +25,7 @@ def login_request(request):
 def google_login_request(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
-            return redirect("admin_home")
+            return redirect("login:admin_home")
         else:
             return redirect("shared:home")
         # if somehow not authenticated, redirect to login page
