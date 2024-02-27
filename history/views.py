@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from shared.models import Report
+from .forms import CaseForm
+
 # Create your views here.
 
 def lookup(request):
     if request.method == "POST":
         id = request.POST.get("id")
         return redirect("history:case", id=id)
-    return render(request, "history/lookup.html")
+    else:
+        form = CaseForm()
+    return render(request, "history/lookup.html", {'form': form})
 
 def case(request, id):
     report_model = Report.objects.get(id=id)
