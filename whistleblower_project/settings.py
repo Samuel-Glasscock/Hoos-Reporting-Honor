@@ -166,7 +166,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 3 # might need to be changed
 # LOGIN_REDIRECT_URL :- destination of login page in your urls.py
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'shared:home'
 # ACCOUNT_LOGOUT_REDIRECT :- where to redirect when user logout
 ACCOUNT_LOGOUT_REDIRECT = 'home'
 
