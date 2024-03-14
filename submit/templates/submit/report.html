@@ -4,25 +4,40 @@
 
 {% block content %}
     {% load static %}
-
-    <div class="container mt-5">
-        <h2 class="mb-4">Submit Your Report</h2>
-        <form action="{% url 'your_submit_url_name' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="fileInput" class="form-label">Select files</label>
-                <input class="form-control" type="file" id="fileInput" name="file_input" multiple>
-                <div class="form-text">Accepted formats: text files, PDFs, images.</div>
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description (optional)</label>
-                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+    <!-- Incident Report Form -->
+    <h1>Incident Report Form</h1>
+    <form action="#" method="post">
+        <!-- Background Information Section -->
+        <div class="section">
+            <h2>Background Information</h2>
+            <label for="date">Date of Incident:</label>
+            <input type="text" id="date" name="date" required>
+            <label for="location">Location of Incident:</label>
+            <input type="text" id="location" name="location" required>
+            <label for="description">Description of Incident:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+        <!-- Involved Students Section -->
+        <div class="section">
+            <h2>Involved Students</h2>
+            <label for="student1">Student 1:</label>
+            <input type="text" id="student1" name="student1" required>
+            <label for="student2">Student 2:</label>
+            <input type="text" id="student2" name="student2" required>
+            <!-- Add more fields as needed -->
+        </div>
+        <!-- Incident Summary Section -->
+        <div class="section">
+            <h2>Incident Summary</h2>
+            <label for="summary">Summary:</label>
+            <textarea id="summary" name="summary" rows="4" required></textarea>
+        </div>
+        <!-- Submit Button -->
+        <input type="submit" value="Submit">
+    </form>
 {% endblock %}
 
 {% block footer %}
     <span class="text-muted">temp, testing footer</span>
 {% endblock %}
+
