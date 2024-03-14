@@ -1,9 +1,12 @@
 {% load bootstrap5 %} {% bootstrap_css %}
 
 {% block content %}
-   {% comment %} form.asp {% endcomment %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</div>
 {% endblock %}
