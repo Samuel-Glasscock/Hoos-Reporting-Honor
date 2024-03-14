@@ -12,20 +12,20 @@ def start_submission(request):
             # You can add additional processing here
             submission.save()
             # Redirect to the next step, passing the submission ID
-            return redirect('background_info', submission_id=submission.id)
+            return redirect('report', submission_id=submission.id)
     else:
         form = StartSubmissionForm()
     return render(request, 'submit/start_submission.html', {'form': form})
 
 
-def report(request, submission_id):
-    submission = get_object_or_404(Submission, id=submission_id)
+def report(request):
+    submission = get_object_or_404(Submission)
     if request.method == 'POST':
         form = ReportForm(request.POST, instance=submission)
         if form.is_valid():
             form.save()
             # Redirect to the next part of the process or to a completion page
-            return redirect('involved_students')
+            return redirect('submit:submission_complete')
     else:
         form = ReportForm(instance=submission)
     return render(request, 'submit/report.html', {'form': form})
