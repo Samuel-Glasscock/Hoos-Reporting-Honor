@@ -7,7 +7,7 @@ from .forms import CaseForm
 def lookup(request):
     if request.method == "POST":
         id = request.POST.get("id")
-        password = request.POST.get("user__password")
+        password = request.POST.get("user_password")
         report_model = Report.objects.get(id=id)
         if report_model.user.password == password:
             return redirect("history:case", id=id)
