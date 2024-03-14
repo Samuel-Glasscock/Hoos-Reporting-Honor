@@ -25,7 +25,7 @@ def report(request):
         if form.is_valid():
             form.save()
             # Redirect to the next part of the process or to a completion page
-            return redirect('submit:submission_complete')
+            return redirect('submission_complete')
     else:
         form = ReportForm(instance=submission)
     return render(request, 'submit/report.html', {'form': form})
