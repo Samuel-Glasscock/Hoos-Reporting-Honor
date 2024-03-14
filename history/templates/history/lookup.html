@@ -1,18 +1,26 @@
-{% load bootstrap5 %} {% bootstrap_css %}
+
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lookup</title>
+    {% load bootstrap5 %} {% bootstrap_css %}
+  </head>
+  <body>
 
 {% block content %}
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="text-center">
     <form method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="id_username">Username</label>
+        <div class="mb-3">
             {{ form.id }}
         </div>
-        <div class="form-group">
-            <label for="id_user_password">Password</label>
-            {{ form.user__password }}
+        <div class="mb-3">
+            {{ form.user_password }}
         </div>
+    </form>
     <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>
