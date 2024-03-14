@@ -5,4 +5,4 @@ def anonymous_submission(request):
         print(request.POST)
         # include logic for form here 
     else:
-        return render(request, "form.html", {})
+        return render(request, "submit/form.html", {})
