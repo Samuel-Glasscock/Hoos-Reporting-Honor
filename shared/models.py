@@ -11,7 +11,7 @@ class Report(models.Model):
         APPROVED = 'APPROVED'
         REJECTED = 'REJECTED'
     id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
     submission_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     report_text = models.TextField()
@@ -22,7 +22,8 @@ class Report(models.Model):
             models.Index(fields=['submission_date', 'status']),
         ]
     def __str__(self):
-        return f'{self.id}: {self.report_text}'
+        user_display = self.user.username if self.user else 'Anonymous'
+        return f'{self.id}: {user_display} - {self.report_text}'
     
 class File(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
