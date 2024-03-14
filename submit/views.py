@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import StartSubmissionForm, BackgroundInfoForm
+from .forms import StartSubmissionForm, ReportForm
 from .models import Submission
 
 
@@ -18,29 +18,18 @@ def start_submission(request):
     return render(request, 'submit/start_submission.html', {'form': form})
 
 
-def background_info(request, submission_id):
+def report(request, submission_id):
     submission = get_object_or_404(Submission, id=submission_id)
     if request.method == 'POST':
-        form = BackgroundInfoForm(request.POST, instance=submission)
+        form = ReportForm(request.POST, instance=submission)
         if form.is_valid():
             form.save()
             # Redirect to the next part of the process or to a completion page
             return redirect('involved_students')
     else:
-        form = BackgroundInfoForm(instance=submission)
-    return render(request, 'submit/background_info.html', {'form': form})
+        form = ReportForm(instance=submission)
+    return render(request, 'submit/report.html', {'form': form})
 
-
-def involved_students(request, submission_id):
-    submission = get_object_or_404(Submission, id=submission_id)
-    if request.method == 'POST':
-        form = BackgroundInfoForm(request.POST, instance=submission)
-        if form.is_valid():
-            form.save()
-            return redirect('submission_complete')
-    else:
-        form = BackgroundInfoForm(instance=submission)
-    return render(request, 'submit/background_info.html', {'form': form})
 
 def submission_complete(request, submission_id):
     submission = get_object_or_404(Submission, id=submission_id)

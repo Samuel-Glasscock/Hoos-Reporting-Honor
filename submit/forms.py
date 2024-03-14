@@ -8,13 +8,8 @@ class StartSubmissionForm(forms.ModelForm):
         model = Submission
         fields = ['title', 'description']
 
-class BackgroundInfoForm(forms.ModelForm):
+class ReportForm(forms.ModelForm):
     class Meta:
         model = Submission
-        fields = ['background_info']  #need to update later
+        fields = ['report']  #need to update later
 
-
-class InvolvedStudentsForm(forms.ModelForm):
-    class Meta:
-        model = Submission
-        fields = ['involved_students']  #need to update later
