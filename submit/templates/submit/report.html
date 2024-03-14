@@ -1,23 +1,28 @@
 {% extends 'submit/base.html' %}
 
-{% block title %}Report{% endblock %}
+{% block title %}Report Submission{% endblock %}
 
 {% block content %}
     {% load static %}
 
+    <div class="container mt-5">
+        <h2 class="mb-4">Submit Your Report</h2>
+        <form action="{% url 'your_submit_url_name' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="fileInput" class="form-label">Select files</label>
+                <input class="form-control" type="file" id="fileInput" name="file_input" multiple>
+                <div class="form-text">Accepted formats: text files, PDFs, images.</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description (optional)</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 {% endblock %}
 
 {% block footer %}
     <span class="text-muted">temp, testing footer</span>
 {% endblock %}
-
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Title</title>#}
-{#</head>#}
-{#<body>#}
-{##}
-{#</body>#}
-{#</html>#}

@@ -11,5 +11,5 @@ class StartSubmissionForm(forms.ModelForm):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Submission
-        fields = ['report']  #need to update later
+        fields = ['background_info']  #need to update later
 
