@@ -2,9 +2,7 @@
 {% block title %}Start Submission{% endblock %}
 {% block main %}
     <h1>Start Submission</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+    <form method="post" action="{% url 'submit:report' %}">
+        <button type="submit">Start a Report</button>
     </form>
 {% endblock %}
