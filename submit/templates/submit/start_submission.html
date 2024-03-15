@@ -1,23 +1,10 @@
 {% extends 'submit/base.html' %}
-
-{% block title %}Report: Start Submission{% endblock %}
-
+{% block title %}Start Submission{% endblock %}
 {% block content %}
-    {% load static %}
-
+    <h1>Start Submission</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 {% endblock %}
-
-{% block footer %}
-    <span class="text-muted">temp, testing footer</span>
-{% endblock %}
-
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Title</title>#}
-{#</head>#}
-{#<body>#}
-{##}
-{#</body>#}
-{#</html>#}
