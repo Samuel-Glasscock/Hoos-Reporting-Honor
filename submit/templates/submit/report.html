@@ -7,7 +7,7 @@
     <!-- Incident Report Form -->
     <div class="container">
         <h1 class="mt-5">Incident Report Form</h1>
-        <form action="#" method="post" class="mt-4">
+        <form action="{% url 'submit:submission_complete' %}" method="post" class="mt-4">
             {% csrf_token %}
             <!-- Background Information Section -->
             <div class="section">
