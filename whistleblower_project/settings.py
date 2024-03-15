@@ -165,6 +165,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # OAuth2 (Google Login)
 # https://docs.allauth.org/en/latest/
 
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
 SITE_ID = 3 # might need to be changed
 # LOGIN_REDIRECT_URL :- destination of login page in your urls.py
 LOGIN_REDIRECT_URL = 'shared:home'
