@@ -56,7 +56,7 @@ def report_submission(request):
     if request.method == 'POST':
         repoort_form = ReportForm(request.POST)
         file_form = FileForm(request.POST, request.FILES)
-        if repoort_form.is_valid() and file_form.is_valid():
+        if report_form.is_valid() and file_form.is_valid():
             new_report = repoort_form.save(commit=False)
             if request.user.is_authenticated:
                 new_report.user = request.user
@@ -64,10 +64,9 @@ def report_submission(request):
                 new_report.user = None
             new_report.save()
 
-            if file_form.is_valid():
-                files = request.FILES.getlist('file_field')
-                for f in files:
-                    File.objects.create(report=new_report, file=f)
+            files = request.FILES.getlist('file_field')
+            for f in files:
+                File.objects.create(report=new_report, file=f)
 
             return redirect('submit:submission_complete')
         
