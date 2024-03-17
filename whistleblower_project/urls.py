@@ -26,4 +26,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('login.urls')),
     path('shared/', include('shared.urls')),
+    path('submit/', include('submit.urls')),
     ]
