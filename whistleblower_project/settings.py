@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     'bootstrap5',
     # 'django_bootstrap5',
     # 'django-bootstrap-v5',
+
+    # aws s3
+    'storages',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -188,3 +191,23 @@ try:
         django_heroku.settings(locals())
 except ImportError:
     found = False
+
+import os
+# AWS s3 configuration
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'honor-code-reporting-a-22'
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME') 
+AWS_S3_CUSTOM_DOMAIN = 'honor-code-reporting-a-22.s3.amazonaws.com'
+
+# For serving static files directly from S3
+AWS_S3_URL_PROTOCOL = 'https:'
+AWS_S3_USE_SSL = True
+AWS_S3_VERIFY = True
+
+# # Static and media file configuration
+# STATIC_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/static/'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# MEDIA_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/media/'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import StartSubmissionForm, ReportForm
-from .models import Submission
+from .forms import StartSubmissionForm 
+from shared.forms import ReportForm, FileForm
+from shared.models import Report, File
 
 def start_submission(request):
     if request.method == 'POST':
@@ -50,9 +51,27 @@ def submission_complete(request):
 
     return render(request, 'submit/submission_complete.html', {})
 
-# def anonymous_submission(request):
-#     if request.method == "POST":
-#         print(request.POST)
-#         # include logic for form here 
-#     else:
-#         return render(request, "submit/form.html", {})
+
+def report_submission(request):
+    if request.method == 'POST':
+        repoort_form = ReportForm(request.POST)
+        file_form = FileForm(request.POST, request.FILES)
+        if report_form.is_valid() and file_form.is_valid():
+            new_report = repoort_form.save(commit=False)
+            if request.user.is_authenticated:
+                new_report.user = request.user
+            else: 
+                new_report.user = None
+            new_report.save()
+
+            files = request.FILES.getlist('file_field')
+            for f in files:
+                File.objects.create(report=new_report, file=f)
+
+            return redirect('submit:submission_complete')
+        
+    else:  
+        report_form = ReportForm()
+        file_form = FileForm()
+    return render(request, 'submit/report_submission.html', {'report_form': report_form, 'file_form': file_form})
+
