@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+# sss
 import os 
 from pathlib import Path
 
@@ -163,6 +164,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # OAuth2 (Google Login)
 # https://docs.allauth.org/en/latest/
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
 SITE_ID = 3 # might need to be changed
 # LOGIN_REDIRECT_URL :- destination of login page in your urls.py
