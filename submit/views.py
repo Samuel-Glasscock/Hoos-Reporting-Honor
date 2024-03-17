@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import StartSubmissionForm, ReportForm, FileForm
-from .models import Report, File
+from .forms import StartSubmissionForm 
+from shared.forms import ReportForm, FileForm
+from shared.models import Report, File
 
 def start_submission(request):
     if request.method == 'POST':
