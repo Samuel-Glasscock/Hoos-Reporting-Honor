@@ -201,7 +201,7 @@ AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_CUSTOM_DOMAIN = 'honor-code-reporting-a-22.s3.amazonaws.com'
 
 # For serving static files directly from S3
-AWS_S3_URL_PROTOCOL = 'https'
+AWS_S3_URL_PROTOCOL = 'https:'
 AWS_S3_USE_SSL = True
 AWS_S3_VERIFY = True
 
