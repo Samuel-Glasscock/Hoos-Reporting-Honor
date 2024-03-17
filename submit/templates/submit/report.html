@@ -1,59 +1,105 @@
-{% extends 'submit/base.html' %}
-
-{% block title %}Report Submission{% endblock %}
-
-{% block main %}
-    {% load static %}
-    <!-- Incident Report Form -->
-    <div class="container">
-        <h1 class="mt-5">Incident Report Form</h1>
-        <form action="{% url 'submit:submission_complete' %}" method="post" class="mt-4">
-            {% csrf_token %}
-            <!-- Background Information Section -->
-            <div class="section">
-                <h2>Background Information</h2>
-                <div class="form-group">
-                    <label for="date">Date of Incident:</label>
-                    <input type="date" id="date" name="date" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="location">Location of Incident:</label>
-                    <input type="text" id="location" name="location" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description of Incident:</label>
-                    <textarea id="description" name="description" class="form-control" rows="4" required></textarea>
-                </div>
-            </div>
-            <!-- Involved Students Section -->
-            <div class="section">
-                <h2>Involved Students</h2>
-                <div class="form-group">
-                    <label for="student1">Student 1:</label>
-                    <input type="text" id="student1" name="student1" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="student2">Student 2:</label>
-                    <input type="text" id="student2" name="student2" class="form-control" required>
-                </div>
-                <!-- Add more fields as needed -->
-            </div>
-            <!-- Incident Summary Section -->
-            <div class="section">
-                <h2>Incident Summary</h2>
-                <div class="form-group">
-                    <label for="summary">Summary:</label>
-                    <textarea id="summary" name="summary" class="form-control" rows="4" required></textarea>
-                </div>
-            </div>
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+{% extends 'submit/base.html' %} {% block title %}Report Submission{% endblock
+%} {% block main %} {% load static %}
+<!-- Incident Report Form -->
+<div class="container">
+  <h1 class="mt-5">Incident Report Form</h1>
+  <form
+    action="{% url 'submit:submission_complete' %}"
+    method="post"
+    enctype="multipart/form-data"
+    class="mt-4"
+  >
+    {% csrf_token %}
+    <!-- Background Information Section -->
+    <div class="section">
+      <h2>Background Information</h2>
+      <div class="form-group">
+        <label for="date">Date of Incident:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="location">Location of Incident:</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description of Incident:</label>
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          rows="4"
+          required
+        ></textarea>
+      </div>
     </div>
+    <!-- Involved Students Section -->
+    <div class="section">
+      <h2>Involved Students</h2>
+      <div class="form-group">
+        <label for="student1">Student 1:</label>
+        <input
+          type="text"
+          id="student1"
+          name="student1"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="student2">Student 2:</label>
+        <input
+          type="text"
+          id="student2"
+          name="student2"
+          class="form-control"
+          required
+        />
+      </div>
+      <!-- Add more fields as needed -->
+    </div>
+    <!-- Incident Summary Section -->
+    <div class="section">
+      <h2>Incident Summary</h2>
+      <div class="form-group">
+        <label for="summary">Summary:</label>
+        <textarea
+          id="summary"
+          name="summary"
+          class="form-control"
+          rows="4"
+          required
+        ></textarea>
+      </div>
+    </div>
+    <!-- Attach Files Section -->
+    <div class="section">
+      <h2>Attach Files(.txt, .pdf, .jpg)</h2>
+      <div class="form-group">
+        <label for="fileUpload">Upload Files:</label>
+        <input
+          type="file"
+          id="fileUpload"
+          name="file_field"
+          class="form-control"
+          multiple> 
+      </div>
+    </div>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% endblock %} {% block footer %}
+<span class="text-muted">temp, testing footer</span>
 {% endblock %}
-
-{% block footer %}
-    <span class="text-muted">temp, testing footer</span>
-{% endblock %}
-
-
