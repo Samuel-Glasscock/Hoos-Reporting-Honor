@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Report, File
 
 # Create your views here.
 def home(request):
@@ -7,3 +9,12 @@ def home(request):
     elif request.user.is_authenticated:
         return render(request, "submit/start_submission.html")
     return render(request, "404.html")
+
+def is_site_admin(user):
+    return user.is_authenticated and (user.is_staff or user.profile.is_admin)
+
+@login_required
+@user_passes_test(is_site_admin)
+def admin_report_list(request):
+    completed_reports = completed_reports.prefetch_related('file_set')
+    return render(request, 'reports/admin_report_list.html', {'reports': completed_reports})
