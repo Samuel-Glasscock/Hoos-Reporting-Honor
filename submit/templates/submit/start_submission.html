@@ -1,0 +1,9 @@
+{% extends 'submit/base.html' %}
+{% block title %}Start Submission{% endblock %}
+{% block main %}
+    <h1>Start Submission</h1>
+    <form method="post" action="{% url 'submit:report' %}">
+        {% csrf_token %}
+        <button type="submit">Start a Report</button>
+    </form>
+{% endblock %}
