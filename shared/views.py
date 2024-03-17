@@ -29,6 +29,6 @@ def upload_test(request):
     return render(request, 'shared/upload_test.html')
 
 def view_files(request):
-    # get all file objects
+    # get all file objects from s3
     files = File.objects.all()
     return render(request, 'shared/view_files.html', {'files': files})
