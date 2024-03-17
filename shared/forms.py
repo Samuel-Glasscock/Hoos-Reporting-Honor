@@ -8,4 +8,4 @@ class ReportForm(forms.ModelForm):
 
 
 class FileForm(forms.Form): # not a ModelForm since uploading multiple files
-    file_fileds = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+    file_fileds = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
