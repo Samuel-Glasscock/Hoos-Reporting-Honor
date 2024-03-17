@@ -9,7 +9,7 @@
     <h1>View Files</h1>
     <ul>
         {% for file in files %}
-            <li><a href="://{{ file.file.url }}" target="_blank">File {{file}}</a></li>
+            <img src="{{ file.get_file_url }}" alt="{{ file.name }}">
         {% endfor %}
     </ul>
 </body>
