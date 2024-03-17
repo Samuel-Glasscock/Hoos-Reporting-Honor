@@ -29,6 +29,6 @@ def upload_test(request):
     return render(request, 'shared/upload_test.html')
 
 def view_files(request):
-    report = Report.objects.get(pk=0)
-    files = report.file_set.all()
+    # get all file objects
+    files = File.objects.all()
     return render(request, 'shared/view_files.html', {'files': files})
