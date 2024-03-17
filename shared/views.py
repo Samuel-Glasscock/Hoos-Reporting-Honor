@@ -27,3 +27,8 @@ def upload_test(request):
             File.objects.create(report=report, file=file)
         return redirect('shared/404.html')
     return render(request, 'shared/upload_test.html')
+
+def view_files(request):
+    report = Report.objects.get(pk=0)
+    files = report.file_set.all()
+    return render(request, 'shared/view_files.html', {'files': files})
