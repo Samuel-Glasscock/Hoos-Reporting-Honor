@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Report, File
 
@@ -18,3 +18,11 @@ def is_site_admin(user):
 def admin_report_list(request):
     completed_reports = completed_reports.prefetch_related('file_set')
     return render(request, 'reports/admin_report_list.html', {'reports': completed_reports})
+
+def upload_test(request):
+    if request.method == 'POST':
+        report = Report.objects.create(user=request.user, report_text=request.POST['report_text'])
+        for file in request.FILES.getlist('file'):
+            File.objects.create(report=report, file=file)
+        return redirect('shared/404.html')
+    return render(request, 'shared/upload_test.html')

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from storages.backends.s3boto3 import S3Boto3Storage
 
 # to import into any module: from shared.models import Report, File
 
@@ -27,7 +28,7 @@ class Report(models.Model):
     
 class File(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='uploads/')
+    file = models.FileField(storage=S3Boto3Storage(), upload_to='uploads/')
     class Meta:
         indexes = [
             models.Index(fields=['report', 'file']),
