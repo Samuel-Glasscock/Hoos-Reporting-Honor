@@ -33,6 +33,8 @@ class File(models.Model):
         indexes = [
             models.Index(fields=['report', 'file']),
         ]
+    def get_file_url(self):
+        return self.file.url
     def __str__(self):
         return f'{self.report.id}: {self.file}'
     
