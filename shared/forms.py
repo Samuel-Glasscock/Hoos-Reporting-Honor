@@ -4,7 +4,7 @@ from .models import Report, File
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ["id", "title", "description", "status"]
+        fields = ["report_text", "status"]
 
 
 class FileForm(forms.Form): # not a ModelForm since uploading multiple files
