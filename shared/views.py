@@ -21,9 +21,9 @@ def admin_report_list(request):
 
 def upload_test(request):
     if request.method == 'POST':
-        # save a blank report
-        report = Report.objects.create()
+        # get report 0 to test
+        report = Report.objects.get(pk=0)
         for file in request.FILES.getlist('file'):
-            File.objects.create(report=report,file=file)
+            File.objects.create(report=report, file=file)
         return redirect('shared/404.html')
     return render(request, 'shared/upload_test.html')
