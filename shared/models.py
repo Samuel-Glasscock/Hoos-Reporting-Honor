@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from storages.backends.s3boto3 import S3Boto3Storage
+from django.utils import timezone
 
 # to import into any module: from shared.models import Report, File
 
@@ -15,12 +16,17 @@ class Report(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
     submission_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
-    report_text = models.TextField()
+    incident_date = models.DateField(default = timezone.now) # include default for existing models in db
+    incident_location = models.CharField(max_length=255, default = 'Unknown')
+    students_involved = models.TextField(default = 'Unknown')
+    report_text = models.TextField() # combine incident summary and description to just be one or the other and save here?
+    report_summary = models.TextField(default = 'summary to be provided')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+
     class Meta:
         ordering = ['-submission_date']
         indexes = [
-            models.Index(fields=['submission_date', 'status']),
+            models.Index(fields=['submission_date', 'status', 'incident_date', 'incident_location']),
         ]
     def __str__(self):
         user_display = self.user.username if self.user else 'Anonymous'
