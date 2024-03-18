@@ -12,32 +12,49 @@
 
     <!-- CSS for navbar + sticky footer (could be applied to the rest of the project) -->
     <link href="../../static/submit/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
+
   </head>
 
   <body>
     <header>
       <!-- Fixed navbar -->
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Fixed navbar</a>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-custom">
+        <a class="navbar-brand ps-4" href="#">Hoos Reporting Honor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="https://honor.virginia.edu/">Honor Code<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Reports
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/submit">Make a Report</a></li>
+                <li><a class="dropdown-item" href="/history/lookup">Find Report</a></li> <!-- case id lookup -->
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Dashboard (must login)</a></li> <!--  if not logged in, will lead them directly to login page. if not, directs to appropriate dashboard? -->
+              </ul>
             </li>
           </ul>
-          <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <ul class="navbar-nav ml-auto">
+              <!-- Conditional rendering based on user's sign-in status -->
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-sign-in-alt"></i> Account
+                </a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Sign In</a>
+              </li>
+              {% endif %}
+            </ul>
         </div>
       </nav>
     </header>

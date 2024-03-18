@@ -18,6 +18,12 @@ body {
   background-color: #f5f5f5;
 }
 
+/* navbar styles
+-------------------------------------------------- */
+.navbar-custom {
+    background-color: #151f52; /* Navy blue */
+}
+
 
 /* Custom page CSS
 -------------------------------------------------- */
