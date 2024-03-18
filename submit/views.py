@@ -55,6 +55,7 @@ def submission_complete(request):
             file_instance = File.objects.create(report=report, file=filename)
 
         messages.success(request, 'You have successfully submitted your report.')
+    else:
         messages.error(request, 'No report data found. Please start over.')
         return redirect('submit:report')
 
@@ -63,7 +64,7 @@ def submission_complete(request):
 
 def report_submission(request):
     if request.method == 'POST':
-        repoort_form = ReportForm(request.POST)
+        report_form = ReportForm(request.POST)
         file_form = FileForm(request.POST, request.FILES)
         if report_form.is_valid() and file_form.is_valid():
             new_report = repoort_form.save(commit=False)
