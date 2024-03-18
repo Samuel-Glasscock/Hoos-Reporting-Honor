@@ -9,8 +9,20 @@
     <h1>View Files</h1>
     <ul>
         {% for file in files %}
-            <img src="{{ file.get_file_url }}" alt="{{ file.name }}">
-        {% endfor %}
+        <!-- GPT -->
+        {% with object_data=file.object_data content_type=file.content_type %}
+
+            {% if content_type.startswith('image') %}
+                <!-- Render image -->
+                <img src="{% url 'render_object_from_s3' s3_object_url='your_s3_object_url' %}" alt="Image">
+            {% elif content_type == 'text/plain' %}
+                <!-- Render text content -->
+                <pre>{{ object_data }}</pre>
+            {% else %}
+                <!-- Provide alternative content -->
+                <a href="{% url 'render_object_from_s3' s3_object_url='your_s3_object_url' %}">Test</a>
+            {% endif %}
+            {% endfor %}
     </ul>
 </body>
 </html>
