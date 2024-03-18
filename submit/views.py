@@ -67,7 +67,7 @@ def report_submission(request):
         report_form = ReportForm(request.POST)
         file_form = FileForm(request.POST, request.FILES)
         if report_form.is_valid() and file_form.is_valid():
-            new_report = repoort_form.save(commit=False)
+            new_report = report_form.save(commit=False)
             if request.user.is_authenticated:
                 new_report.user = request.user
             else: 
