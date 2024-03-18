@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 # Create your views here.
 def home(request):
     if request.user.profile.is_admin:
-        return render(request, "login/admin_home.html")
+        return render(request, "shared/view_files.html") # was login/admin_home.html
     elif request.user.is_authenticated:
         return render(request, "submit/start_submission.html")
     return render(request, "404.html")
