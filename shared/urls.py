@@ -7,6 +7,6 @@ urlpatterns = [
     path("admin/reports", views.admin_report_list, name="admin_report_list"),
     path("upload_test", views.upload_test, name="upload_test"),
     path("view_files", views.view_files, name="view_files"),
-    path("render_object_from_s3/", views.render_object_from_s3, name="render_object_from_s3")
+    path("render_object_from_s3/", views.render_object_from_s3, name="render_object_from_s3"),
     path("render_object_from_s3/<str:s3_object_url>", views.render_object_from_s3, name="render_object_from_s3")
 ]
