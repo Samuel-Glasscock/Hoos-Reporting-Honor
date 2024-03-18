@@ -10,7 +10,9 @@
     <ul>
         {% for file in files %}
             <!-- GPT -->
-            <img src="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}" alt="Image">
+            <li>
+                <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}" target="_blank">View Image</a>
+            </li>        
         {% endfor %}
     </ul>
 </body>
