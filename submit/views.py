@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import StartSubmissionForm 
 from shared.forms import ReportForm, FileForm
 from shared.models import Report, File
+from django.core.files.storage import default_storage
 
 def start_submission(request):
     if request.method == 'POST':
@@ -40,12 +41,20 @@ def submission_complete(request):
     # This step depends on how you intend to use the stored data
     report_data = request.session.pop('report_data', None)
     if report_data:
-        # Process your report_data here, e.g., create a Submission object
-        # submission = Submission.objects.create(**report_data)
-        # Do something with the submission object
-        pass
-    else:
-        # Handle cases where there is no data (e.g., direct access to this URL)
+        # Create a Report object. Adjust the field names as per your model.
+        report = Report.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            report_text=report_data.get('description'),
+            # add other fields as required
+        )
+
+        # Process uploaded files
+        for file in request.FILES.getlist('file_field'):
+            # Assuming your File model has 'report' FK to Report and 'file' as a FileField
+            filename = default_storage.save(file.name, file)
+            file_instance = File.objects.create(report=report, file=filename)
+
+        messages.success(request, 'You have successfully submitted your report.')
         messages.error(request, 'No report data found. Please start over.')
         return redirect('submit:report')
 
