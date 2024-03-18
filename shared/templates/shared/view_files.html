@@ -6,7 +6,7 @@
     <title>File Upload Test</title>
 </head>
 <body>
-    <h1>View Files</h1>
+    <h1>Admin home: View Files</h1>
     <ul>
         {% for file in files %}
             <img src="{{ file.get_file_url }}" alt="{{ file.name }}">
