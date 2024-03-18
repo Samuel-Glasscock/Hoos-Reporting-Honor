@@ -41,16 +41,18 @@ def submission_complete(request):
     # This step depends on how you intend to use the stored data
     report_data = request.session.pop('report_data', None)
     if report_data:
-        # Create a Report object. Adjust the field names as per your model.
+        # Create a Report object
         report = Report.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            report_text=report_data.get('description'),
-            # add other fields as required
+            user = request.user if request.user.is_authenticated else None,
+            incident_date = report_data.get('date'),
+            incident_location = report_data.get('location'),
+            students_involved = report_data.get('student1') + ';' + report_data.get('student2'),
+            report_summary = report_data.get('description'), #  have description  as well? 
+            report_text = report_data.get('summary'),
         )
 
         # Process uploaded files
         for file in request.FILES.getlist('file_field'):
-            # Assuming your File model has 'report' FK to Report and 'file' as a FileField
             filename = default_storage.save(file.name, file)
             file_instance = File.objects.create(report=report, file=filename)
 

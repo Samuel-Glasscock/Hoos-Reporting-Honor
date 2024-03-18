@@ -15,12 +15,17 @@ class Report(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
     submission_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
-    report_text = models.TextField()
+    incident_date = models.DateField()
+    incident_location = models.CharField(max_length=255)
+    students_involved = models.TextField()
+    report_text = models.TextField() # combine incident summary and description to just be one or the other and save here?
+    report_summary = models.TextField()
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+
     class Meta:
         ordering = ['-submission_date']
         indexes = [
-            models.Index(fields=['submission_date', 'status']),
+            models.Index(fields=['submission_date', 'status', 'incident_date', 'incident_location']),
         ]
     def __str__(self):
         user_display = self.user.username if self.user else 'Anonymous'
