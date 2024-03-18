@@ -12,4 +12,4 @@ class ReportForm(forms.ModelForm):
 class FileForm(forms.Form):
     model = File
     fields = ["file"]
-    file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+    file_field = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
