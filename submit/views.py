@@ -31,10 +31,11 @@ def report(request):
                 new_report.user = request.user
             new_report.save()
 
-            # check if files were uploaded
-            files = request.FILES.getlist('file_field')
-            for f in files:
-                File.objects.create(report=new_report, file=f)
+            # check if file was uploaded
+            if file_form.is_valid():
+                file = file_form.cleaned_data('file_field')
+                if file:
+                    File.objects.create(report=new_report, file=file)
             messages.success(request, 'You have successfully submitted your report.')
             return redirect('submit:submission_complete')
         else:
@@ -49,26 +50,26 @@ def submission_complete(request):
     return render(request, 'submit/submission_complete.html', {})
 
 
-def report_submission(request):
-    if request.method == 'POST':
-        report_form = ReportForm(request.POST)
-        file_form = FileForm(request.POST, request.FILES)
-        if report_form.is_valid() and file_form.is_valid():
-            new_report = report_form.save(commit=False)
-            if request.user.is_authenticated:
-                new_report.user = request.user
-            else: 
-                new_report.user = None
-            new_report.save()
+# def report_submission(request):
+#     if request.method == 'POST':
+#         report_form = ReportForm(request.POST)
+#         file_form = FileForm(request.POST, request.FILES)
+#         if report_form.is_valid() and file_form.is_valid():
+#             new_report = report_form.save(commit=False)
+#             if request.user.is_authenticated:
+#                 new_report.user = request.user
+#             else: 
+#                 new_report.user = None
+#             new_report.save()
 
-            files = request.FILES.getlist('file_field')
-            for f in files:
-                File.objects.create(report=new_report, file=f)
+#             files = request.FILES.getlist('file_field')
+#             for f in files:
+#                 File.objects.create(report=new_report, file=f)
 
-            return redirect('submit:submission_complete')
+#             return redirect('submit:submission_complete')
         
-    else:  
-        report_form = ReportForm()
-        file_form = FileForm()
-    return render(request, 'submit/report_submission.html', {'report_form': report_form, 'file_form': file_form})
+#     else:  
+#         report_form = ReportForm()
+#         file_form = FileForm()
+#     return render(request, 'submit/report_submission.html', {'report_form': report_form, 'file_form': file_form})
 

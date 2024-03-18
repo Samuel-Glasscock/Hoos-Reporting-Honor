@@ -10,6 +10,7 @@ class ReportForm(forms.ModelForm):
 # class FileForm(forms.Form): # not a ModelForm since uploading multiple files
 #     file_field = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
 class FileForm(forms.Form):
-    model = File
-    fields = ["file"]
-    file_field = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
+    file_field = forms.FileField(required=False) # changed to only handle single form submitted for simplicity since FileInput does not accept multiple files
+    # model = File
+    # fields = ["file"]
+    # file_field = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
