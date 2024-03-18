@@ -9,19 +9,8 @@
     <h1>Admin home: View Files</h1>
     <ul>
         {% for file in files %}
-        <!-- GPT -->
-        {% with object_data=file.object_data content_type=file.content_type %}
-            {% if content_type|slice:":5" == 'image' %}
-            <!-- Render image -->
+            <!-- GPT -->
             <img src="{% url 'render_object_from_s3' s3_object_url='your_s3_object_url' %}" alt="Image">
-            {% elif content_type == 'text/plain' %}
-                <!-- Render text content -->
-                <pre>{{ object_data }}</pre>
-            {% else %}
-                <!-- Provide alternative content -->
-                <a href="{% url 'render_object_from_s3' s3_object_url='your_s3_object_url' %}">Download File</a>
-            {% endif %}
-    
         {% endfor %}
     </ul>
 </body>
