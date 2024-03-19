@@ -36,11 +36,11 @@ def report(request, id):
         if "notes" in request.POST:
             report_model.report_text = request.POST.get("notes")
             report_model.save()
-            return render(request, "history/report.html", {"report": report_model, "message": "Notes saved"})
+            return redirect("history:report", id=id)
         if "resolved" in request.POST:
             report_model.status = "APPROVED"
             report_model.save()
-            return render(request, "history/report.html", {"report": report_model, "message": "Resolved status saved"})
+            return redirect("history:dashboard")
 
     report_model = Report.objects.get(id=id)
     if report_model.status == "NEW":
