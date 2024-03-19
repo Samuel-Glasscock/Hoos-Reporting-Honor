@@ -1,0 +1,32 @@
+{% extends 'submit/base.html' %}
+{% block title %}Dashboard{% endblock%}
+{% block main %}
+
+<h1>Report {{ report.id }}</h1>
+<p>Status: {{ report.status }}</p>
+<p>User: {{ report.user.username }}</p>
+<p>Submission Date: {{ report.submission_date }}</p>
+<p>Edit Date: {{ report.edit_date }}</p>
+<p>Incident Date: {{ report.incident_date }}</p>
+<p>Incident Location: {{ report.incident_location }}</p>
+<p>Students Involved: {{ report.students_involved }}</p>
+<p>Report Summary: {{ report.report_summary }}</p>
+
+<form action="">
+    {% csrf_token %}
+    <input type="submit" value="resolved" />
+    <button type="submit" class="btn btn-primary">Resolve</button>
+</form>
+
+<form action="">
+    {% csrf_token %}
+    <input
+    type="text"
+    id="student2"
+    name="student2"
+    class="form-control"
+    placeholder="eg. mst3k"
+    />
+    <button type="submit" class="btn btn-primary">Edit</button>
+
+{% endblock %}
