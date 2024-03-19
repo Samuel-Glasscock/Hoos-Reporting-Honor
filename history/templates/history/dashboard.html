@@ -1,0 +1,28 @@
+{% extends 'submit/base.html' %}
+{% block title %}Report Submission{% endblock%}
+{% block main %}
+<h1>All Reports</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Status</th>
+      <th>User</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for report in reports %}
+    <tr>
+      <td>{{ report.id }}</td>
+      <td>{{ report.status }}</td>
+      <td>{{ report.user.username if report.user else "Anonymous" }}</td>
+      <td>
+        <a href="{% url 'submission_detail' report.id %}">View</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
