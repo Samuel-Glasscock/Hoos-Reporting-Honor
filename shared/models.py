@@ -20,7 +20,7 @@ class Report(models.Model):
     incident_date = models.DateField(default = timezone.now) # include default for existing models in db
     incident_location = models.CharField(max_length=255, default = 'Unknown')
     students_involved = models.TextField(default = 'Unknown')
-    report_text = models.TextField() # used for storing notes
+    report_text = models.TextField(default = "")
     report_summary = models.TextField(default = 'summary to be provided')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
 
