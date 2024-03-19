@@ -21,7 +21,7 @@
 
 {% if user.profile.is_admin %}
 
-<form action="">
+<form action="", method="post">
     {% csrf_token %}
     <input
     type="text"
@@ -33,7 +33,7 @@
     <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 
-<form action="">
+<form action="", method="post">
     {% csrf_token %}
     <input type="hidden" name="status" value="Approved">
     <button type="submit" class="btn btn-primary">Resolve</button>
