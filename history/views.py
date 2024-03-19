@@ -37,7 +37,7 @@ def report(request, id):
             report_model.report_text = request.POST.get("notes")
             report_model.save()
             return redirect("history:report", id=id)
-        if "resolved" in request.POST:
+        if "status" in request.POST:
             report_model.status = "APPROVED"
             report_model.save()
             return redirect("history:dashboard")
