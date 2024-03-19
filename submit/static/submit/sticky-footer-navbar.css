@@ -23,6 +23,11 @@ body {
 .navbar-custom {
     background-color: #151f52; /* Navy blue */
 }
+.top-strip {
+  height: 5px;
+  background-color: orange;
+  width: 100%;
+}
 
 
 /* Custom page CSS
