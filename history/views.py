@@ -22,7 +22,7 @@ def case(request, id):
     return render(request, "history/case.html", {"id": id, "report": report_model})
 @login_required
 def dashboard(request):
-    user = request.user
+    user = request.user.profile
     if user.is_admin:
         reports = Report.objects.all()
     else:
