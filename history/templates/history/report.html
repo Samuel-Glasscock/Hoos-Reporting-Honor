@@ -11,22 +11,35 @@
 <p>Incident Location: {{ report.incident_location }}</p>
 <p>Students Involved: {{ report.students_involved }}</p>
 <p>Report Summary: {{ report.report_summary }}</p>
+<p>Report Details: {{ report.report_text }}</p>
 
-<form action="">
-    {% csrf_token %}
-    <input type="submit" value="resolved" />
-    <button type="submit" class="btn btn-primary">Resolve</button>
-</form>
+
+{% for file in report.files.all %}
+    <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}">{{ file.file.name }}</a>
+{% endfor %}
+
+
+{% if user.is_admin %}
 
 <form action="">
     {% csrf_token %}
     <input
     type="text"
-    id="student2"
-    name="student2"
+    id="notes"
+    name="notes"
     class="form-control"
-    placeholder="eg. mst3k"
+    placeholder="Notes"
     />
     <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+
+<form action="">
+    {% csrf_token %}
+    <input type="hidden" name="status" value="Approved">
+    <button type="submit" class="btn btn-primary">Resolve</button>
+</form>
+
+{% endif %}
+
 
 {% endblock %}

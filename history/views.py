@@ -32,17 +32,17 @@ def dashboard(request):
 def report(request, id):
     if request.method == "POST":
         report_model = Report.objects.get(id=id)
-        # if its a text field called notes add and save
         if "notes" in request.POST:
-            report_model.notes = request.POST.get("notes")
+            report_model.report_text = request.POST.get("notes")
             report_model.save()
             return render(request, "history/report.html", {"report": report_model, "message": "Notes saved"})
-        # if its a bool field for resolved update field
         if "resolved" in request.POST:
             report_model.status = "APPROVED"
             report_model.save()
             return render(request, "history/report.html", {"report": report_model, "message": "Resolved status saved"})
 
-
     report_model = Report.objects.get(id=id)
+    if report_model.status == "NEW":
+        report_model.status = "PENDING"
+        report_model.save()
     return render(request, "history/report.html", {"report": report_model})
