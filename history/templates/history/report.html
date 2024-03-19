@@ -19,7 +19,7 @@
 {% endfor %}
 
 
-{% if user.is_admin %}
+{% if user.profile.is_admin %}
 
 <form action="">
     {% csrf_token %}
