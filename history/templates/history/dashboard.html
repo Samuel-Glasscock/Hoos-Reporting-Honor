@@ -16,7 +16,11 @@
     <tr>
       <td>{{ report.id }}</td>
       <td>{{ report.status }}</td>
-      <td>{{ report.user.username if report.user else "Anonymous" }}</td>
+      {% if report.user %}
+      {{ report.user.username }}
+    {% else %}
+    Anonymous
+    {% endif %}
       <td>
         <a href="{% url 'submission_detail' report.id %}">View</a>
       </td>
