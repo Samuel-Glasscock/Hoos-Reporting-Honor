@@ -12,7 +12,7 @@ def home(request):
         # call shared:view_files
         return redirect('shared:view_files')
     elif request.user.is_authenticated:
-        return render(request, "submit/start_submission.html")
+        return render(request, "shared:home")
     return render(request, "404.html")
 
 def is_site_admin(user):
