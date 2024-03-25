@@ -12,8 +12,8 @@ def home(request):
         # call shared:view_files
         return redirect('shared:view_files')
     elif request.user.is_authenticated:
-        return render(request, "shared:home")
-    return render(request, "404.html")
+        return render(request, "shared/home.html")
+    return render(request, "shared/404.html")
 
 def is_site_admin(user):
     return user.is_authenticated and (user.is_staff or user.profile.is_admin)
