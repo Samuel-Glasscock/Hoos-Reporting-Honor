@@ -2,6 +2,8 @@ from django import forms
 from .models import Report, File
 
 class ReportForm(forms.ModelForm):
+    # enforce data validation in forms even if it is also mentioned in html
+    students_involved = forms.CharField(widget=forms.TextInput(attrs={'placeholder': "abc1de, fgh2ij, klm3no"}))
     class Meta:
         model = Report
         fields = ["incident_date", "incident_location", "students_involved", "report_summary", "report_text"]

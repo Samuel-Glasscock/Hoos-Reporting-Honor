@@ -29,6 +29,13 @@ def report(request):
             new_report = report_form.save(commit=False)
             if request.user.is_authenticated:
                 new_report.user = request.user
+
+            # process data from student_involved field to ensure clean data by trimming and removing spaces
+            students_involved_raw = report_form.cleaned_data['students_involved']
+            student_involved_list = [student.strip() for student in students_involved_raw.split(',')]
+            # if we want to process the list of students later, we can do so here such as accessing them to have their email later
+            new_report.students_involved = ', '.join(student_involved_list)
+            
             new_report.save()
 
             # check if file was uploaded
