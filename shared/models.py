@@ -9,6 +9,7 @@ from django.utils import timezone
 
 class Report(models.Model):
     class Status(models.TextChoices):
+        NEW = 'NEW'
         PENDING = 'PENDING'
         APPROVED = 'APPROVED'
         REJECTED = 'REJECTED'
@@ -19,9 +20,9 @@ class Report(models.Model):
     incident_date = models.DateField(default = timezone.now) # include default for existing models in db
     incident_location = models.CharField(max_length=255, default = 'Unknown')
     students_involved = models.TextField(default = 'Unknown')
-    report_text = models.TextField() # combine incident summary and description to just be one or the other and save here?
+    report_text = models.TextField(default = "")
     report_summary = models.TextField(default = 'summary to be provided')
-    status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
 
     class Meta:
         ordering = ['-submission_date']
@@ -31,6 +32,10 @@ class Report(models.Model):
     def __str__(self):
         user_display = self.user.username if self.user else 'Anonymous'
         return f'{self.id}: {user_display} - {self.report_text}'
+
+    def get_students_involved_list(self):
+        """Return a list of student IDs."""
+        return self.students_involved.split(', ')
     
 class File(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE)

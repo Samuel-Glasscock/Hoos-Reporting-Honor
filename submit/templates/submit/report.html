@@ -36,14 +36,13 @@
         />
       </div>
       <div class="form-group">
-        <label for="description">Description of Incident:</label>
-        <textarea
-          id="description"
-          name="description"
-          class="form-control"
-          rows="4"
-          required
-        ></textarea>
+        <label for="incident_category">Incident Category:</label>
+        <select id="incident_category" name="incident_category" class="form-control" required>
+          <option value="">Select</option>
+          <option value="lying">Lying</option>
+          <option value="cheating">Cheating</option>
+          <option value="stealing">Stealing</option>
+        </select>
       </div>
     </div>
     <!-- Involved Students Section -->
@@ -63,6 +62,7 @@
       </div>
       <!-- Add more fields as needed -->
     </div>
+
     <!-- Incident Summary Section -->
     <div class="section" style="margin-top: 20px;">
       <h2>Incident Summary</h2>
