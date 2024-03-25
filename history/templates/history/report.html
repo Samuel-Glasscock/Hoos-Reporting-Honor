@@ -1,0 +1,45 @@
+{% extends 'submit/base.html' %}
+{% block title %}Dashboard{% endblock%}
+{% block main %}
+
+<h1>Report {{ report.id }}</h1>
+<p>Status: {{ report.status }}</p>
+<p>User: {{ report.user.username }}</p>
+<p>Submission Date: {{ report.submission_date }}</p>
+<p>Edit Date: {{ report.edit_date }}</p>
+<p>Incident Date: {{ report.incident_date }}</p>
+<p>Incident Location: {{ report.incident_location }}</p>
+<p>Students Involved: {{ report.students_involved }}</p>
+<p>Report Summary: {{ report.report_summary }}</p>
+<p>Report Details: {{ report.report_text }}</p>
+
+
+{% for file in report.files.all %}
+    <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}">{{ file.file.name }}</a>
+{% endfor %}
+
+
+{% if user.profile.is_admin %}
+
+<form action="", method="post">
+    {% csrf_token %}
+    <input
+    type="text"
+    id="notes"
+    name="notes"
+    class="form-control"
+    placeholder="Notes"
+    />
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+
+<form action="", method="post">
+    {% csrf_token %}
+    <input type="hidden" name="status" value="resolved">
+    <button type="submit" class="btn btn-primary">Resolve</button>
+</form>
+
+{% endif %}
+
+
+{% endblock %}
