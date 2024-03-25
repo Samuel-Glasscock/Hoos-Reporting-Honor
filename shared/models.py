@@ -32,6 +32,10 @@ class Report(models.Model):
     def __str__(self):
         user_display = self.user.username if self.user else 'Anonymous'
         return f'{self.id}: {user_display} - {self.report_text}'
+
+    def get_students_involved_list(self):
+        """Return a list of student IDs."""
+        return self.students_involved.split(', ')
     
 class File(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE)

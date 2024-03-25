@@ -29,6 +29,11 @@ def report(request):
             new_report = report_form.save(commit=False)
             if request.user.is_authenticated:
                 new_report.user = request.user
+
+            students_involved_str = report_form.cleaned_data['students_involved']
+            students_list = new_report.get_students_involved_list(students_involved_str)
+            # do we need students_list ...
+
             new_report.save()
 
             # check if file was uploaded
