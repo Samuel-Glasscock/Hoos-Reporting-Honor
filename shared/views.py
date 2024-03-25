@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponse
 from .models import Report, File
+import boto3
+from urllib.parse import urlparse
+
 
 # Create your views here.
 def home(request):
     if request.user.profile.is_admin:
-        return render(request, "login/admin_home.html")
+        # call shared:view_files
+        return redirect('shared:view_files')
     elif request.user.is_authenticated:
         return render(request, "submit/start_submission.html")
     return render(request, "404.html")
@@ -32,3 +37,14 @@ def view_files(request):
     # get all file objects from s3
     files = File.objects.all()
     return render(request, 'shared/view_files.html', {'files': files})
+
+def render_object_from_s3(request, s3_object_url):
+    s3 = boto3.client('s3')
+    parsed_url = urlparse(s3_object_url)
+    bucket_name = 'honor-code-reporting-a-22'
+    object_key = parsed_url.path.lstrip('/')
+    file = s3.get_object(Bucket=bucket_name, Key=object_key)
+    object_data = file['Body'].read()
+    content_type = file['ContentType']
+    response = HttpResponse(object_data, content_type=content_type)
+    return response

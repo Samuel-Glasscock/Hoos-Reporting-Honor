@@ -13,6 +13,7 @@
     <!-- CSS for navbar + sticky footer (could be applied to the rest of the project) -->
     <link href="../../static/submit/sticky-footer-navbar.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Franklin+Gothic&display=swap" rel="stylesheet">
 
   </head>
 
@@ -45,25 +46,28 @@
               </ul>
             </li>
           </ul>
-          <ul class="navbar-nav ml-auto">
-              <!-- Conditional rendering based on user's sign-in status -->
-              {% if user.profile.is_admin %}
-              <li class="nav-item">
-                <a class="nav-link" href="/shared/admin_home">
-                    <i class="fas fa-sign-in-alt"></i> Account
-                </a>
-              </li>
-{#              {% else if user.is_authenticated %}#}
-{#              <li>#}
-{#                <a class="nav-link" href="/shared/common">#}
-{#                    <i class="fas fa-sign-in-alt"></i> Account#}
-{#                </a>#}
-{#              </li>#}
-              {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Sign In</a>
-              </li>
-              {% endif %}
+
+             <ul class="navbar-nav ml-auto">
+                <!-- Conditional rendering based on user's sign-in status -->
+                {% if user.is_authenticated %}
+                    {% if user.profile.is_admin %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/shared/admin_home">
+                                <i class="fas fa-sign-in-alt"></i> Account
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/shared/common">
+                                <i class="fas fa-sign-in-alt"></i> Account
+                            </a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Sign In</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
       </nav>

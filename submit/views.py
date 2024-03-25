@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import StartSubmissionForm 
 from shared.forms import ReportForm, FileForm
 from shared.models import Report, File
+from django.core.files.storage import default_storage
 
 def start_submission(request):
     if request.method == 'POST':
@@ -22,56 +23,53 @@ from django.contrib import messages
 
 def report(request):
     if request.method == 'POST':
-        form = ReportForm(request.POST)
-        if form.is_valid():
-            # Instead of saving the form, do something temporary with the data
-            # For example, store it in the session
-            request.session['report_data'] = form.cleaned_data
-            messages.success(request, 'Report data temporarily stored.')
+        report_form = ReportForm(request.POST)
+        file_form = FileForm(request.POST, request.FILES)
+        if report_form.is_valid() and file_form.is_valid():
+            new_report = report_form.save(commit=False)
+            if request.user.is_authenticated:
+                new_report.user = request.user
+            new_report.save()
+
+            # check if file was uploaded
+            if file_form.is_valid():
+                file = file_form.cleaned_data('file_field')
+                if file:
+                    File.objects.create(report=new_report, file=file)
+            messages.success(request, 'You have successfully submitted your report.')
             return redirect('submit:submission_complete')
+        else:
+            messages.error(request, 'There was a problem with your submission.')
     else:
-        form = ReportForm()
-        # Optionally clear previous session data here to ensure a fresh start
-        request.session.pop('report_data', None)
-    return render(request, 'submit/report.html', {'form': form})
+        report_form = ReportForm()
+        file_form = FileForm()
+    return render(request, 'submit/report.html', {'report_form': report_form, 'file_form': file_form})
+
 
 def submission_complete(request):
-    # Retrieve data from the session and create a submission object
-    # This step depends on how you intend to use the stored data
-    report_data = request.session.pop('report_data', None)
-    if report_data:
-        # Process your report_data here, e.g., create a Submission object
-        # submission = Submission.objects.create(**report_data)
-        # Do something with the submission object
-        pass
-    else:
-        # Handle cases where there is no data (e.g., direct access to this URL)
-        messages.error(request, 'No report data found. Please start over.')
-        return redirect('submit:report')
-
     return render(request, 'submit/submission_complete.html', {})
 
 
-def report_submission(request):
-    if request.method == 'POST':
-        repoort_form = ReportForm(request.POST)
-        file_form = FileForm(request.POST, request.FILES)
-        if report_form.is_valid() and file_form.is_valid():
-            new_report = repoort_form.save(commit=False)
-            if request.user.is_authenticated:
-                new_report.user = request.user
-            else: 
-                new_report.user = None
-            new_report.save()
+# def report_submission(request):
+#     if request.method == 'POST':
+#         report_form = ReportForm(request.POST)
+#         file_form = FileForm(request.POST, request.FILES)
+#         if report_form.is_valid() and file_form.is_valid():
+#             new_report = report_form.save(commit=False)
+#             if request.user.is_authenticated:
+#                 new_report.user = request.user
+#             else: 
+#                 new_report.user = None
+#             new_report.save()
 
-            files = request.FILES.getlist('file_field')
-            for f in files:
-                File.objects.create(report=new_report, file=f)
+#             files = request.FILES.getlist('file_field')
+#             for f in files:
+#                 File.objects.create(report=new_report, file=f)
 
-            return redirect('submit:submission_complete')
+#             return redirect('submit:submission_complete')
         
-    else:  
-        report_form = ReportForm()
-        file_form = FileForm()
-    return render(request, 'submit/report_submission.html', {'report_form': report_form, 'file_form': file_form})
+#     else:  
+#         report_form = ReportForm()
+#         file_form = FileForm()
+#     return render(request, 'submit/report_submission.html', {'report_form': report_form, 'file_form': file_form})
 
