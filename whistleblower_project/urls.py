@@ -20,10 +20,10 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('submit/', include('submit.urls')),
-    # path('login/', include('login.urls')), # duplicate namespace as homepage, get warning when migrating on heroku
+    path('login/', include('login.urls')), # duplicate namespace as homepage, get warning when migrating on heroku
     path('manage/', include('manage.urls')),
     path('history/', include('history.urls')),
     path('accounts/', include('allauth.urls')),
-    path('', include('login.urls')),
-    path('shared/', include('shared.urls')),
+    path('', include('shared.urls')),
+    # path('shared/', include('shared.urls')),
     ]
