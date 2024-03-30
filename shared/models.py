@@ -32,7 +32,7 @@ class Report(models.Model):
         ]
     def __str__(self):
         user_display = self.user.username if self.user else 'Anonymous'
-        return f'{self.id}: {user_display} - {self.report_text}'
+        return f'{self.id}: {user_display} - {self.report_summary}'
 
     def get_students_involved_list(self):
         """Return a list of student IDs."""
