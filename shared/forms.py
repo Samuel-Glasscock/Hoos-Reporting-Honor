@@ -6,7 +6,7 @@ class ReportForm(forms.ModelForm):
     students_involved = forms.CharField(widget=forms.TextInput(attrs={'placeholder': "abc1de, fgh2ij, klm3no"}))
     class Meta:
         model = Report
-        fields = ["incident_date", "incident_location", "students_involved", "report_summary", "report_text"]
+        fields = ["incident_date", "incident_location", "students_involved", "report_summary"]
 
 
 # class FileForm(forms.Form): # not a ModelForm since uploading multiple files
