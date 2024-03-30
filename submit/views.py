@@ -39,10 +39,10 @@ def report(request):
             new_report.save()
 
             # check if file was uploaded
-            if file_form.is_valid():
-                file = file_form.cleaned_data('file_field')
-                if file:
-                    File.objects.create(report=new_report, file=file)
+            # if file_form.is_valid():
+            file = file_form.cleaned_data.get('file_field')
+            if file:
+                File.objects.create(report=new_report, file=file)
             messages.success(request, 'You have successfully submitted your report.')
             return redirect('submit:submission_complete')
         else:

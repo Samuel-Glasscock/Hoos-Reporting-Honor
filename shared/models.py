@@ -18,9 +18,10 @@ class Report(models.Model):
     submission_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     incident_date = models.DateField(default = timezone.now) # include default for existing models in db
+    incident_category = models.CharField(max_length=255, default = 'Unknown')
     incident_location = models.CharField(max_length=255, default = 'Unknown')
     students_involved = models.TextField(default = 'Unknown')
-    report_text = models.TextField(default = "")
+    # report_text = models.TextField(default = "")
     report_summary = models.TextField(default = 'summary to be provided')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
 
