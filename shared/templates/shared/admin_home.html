@@ -15,8 +15,11 @@
     <tr>
       <td>{{ report.id }}</td>
       <td>
-        {% if report.user %} {{report.user.username}} {% else %} Anonymous {%
-        endif %}
+        {% if report.user %} 
+            {{report.user.username}} 
+        {% else %}
+            Anonymous
+        {% endif %}
       </td>
         <td>{{ report.submission_date }}</td>
       <td>
