@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 
 # Create your views here.
 def home(request):
-    if request.user.profile.is_admin:
+    if request.user.is_authenticated and request.user.profile.is_admin:
         # call shared:view_files
         return redirect('shared:view_files')
     elif request.user.is_authenticated:
