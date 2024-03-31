@@ -1,6 +1,6 @@
 {% extends "submit/base.html" %}
 
-{% block content %}
+{% block main %}
 <h1>Report Details: {{ report.id }}</h1>
 <p><strong>Submitted by:</strong> {% if report.user %}{{ report.user.username }}{% else %}Anonymous{% endif %}</p>
 <p><strong>Date:</strong> {{ report.submission_date }}</p>
