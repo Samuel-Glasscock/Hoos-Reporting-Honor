@@ -23,7 +23,7 @@ def is_site_admin(user):
 @login_required
 @user_passes_test(is_site_admin)
 def admin_report_list(request):
-    completed_reports = Report.object.prefetch_related('file_set').all()
+    completed_reports = Report.objects.prefetch_related('file_set').all()
     return render(request, 'shared/admin_home.html', {'reports': completed_reports})
 
 @login_required
@@ -31,7 +31,7 @@ def admin_report_list(request):
 # @permission_required('shared.view_report', raise_exception=True)
 def report_detail(request, report_id):
     report = get_object_or_404(Report.objects.prefetch_related('file_set'), pk=report_id)
-    return render(request, 'shared/admin_home.html', {'report': report})
+    return render(request, 'shared/report_details.html', {'report': report})
 
 def upload_test(request):
     if request.method == 'POST':

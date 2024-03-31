@@ -1,0 +1,17 @@
+{% extends "submit/base.html" %}
+
+{% block content %}
+<h1>Report Details: {{ report.id }}</h1>
+<p><strong>Submitted by:</strong> {% if report.user %}{{ report.user.username }}{% else %}Anonymous{% endif %}</p>
+<p><strong>Date:</strong> {{ report.submission_date }}</p>
+<p><strong>Summary:</strong> {{ report.report_summary }}</p>
+
+<h2>Associated Files</h2>
+<ul>
+    {% for file in report.file_set.all %}
+    <li>
+        <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
