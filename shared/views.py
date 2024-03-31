@@ -12,8 +12,10 @@ def home(request):
         if hasattr(request.user, "profile") and request.user.profile.is_admin:
         # call shared:view_files
             return redirect('shared:view_files')
-        else:
+        else: # home page for logged in user?
             return render(request, "shared/home.html")
+    else: # home page for anonymous user?
+        return render(request, "shared/home.html")  
 
 def is_site_admin(user):
     return user.is_authenticated and (user.is_staff or user.profile.is_admin)
