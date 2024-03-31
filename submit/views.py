@@ -19,12 +19,12 @@ def start_submission(request):
         request.session.pop('start_submission_data', None)
     return render(request, 'submit/start_submission.html', {'form': form})
 
-from django.contrib import messages
 
 def report(request):
+    report_form = ReportForm(request.POST or None)
+    file_form = FileForm(request.POST or None, request.FILES or None)
+
     if request.method == 'POST':
-        report_form = ReportForm(request.POST)
-        file_form = FileForm(request.POST, request.FILES)
         if report_form.is_valid() and file_form.is_valid():
             new_report = report_form.save(commit=False)
             if request.user.is_authenticated:
@@ -46,13 +46,12 @@ def report(request):
             messages.success(request, 'You have successfully submitted your report.')
             return redirect('submit:submission_complete')
         
-        if not report_form.is_valid():
-            messages.error(request, 'There was a problem with your report submission')
-        if not file_form.is_valid():
-            messages.error(request, 'There was a problem with your file submission')
         else:
-            messages.error(request, 'There was a problem with your submission.')
-            
+            if not report_form.is_valid():
+                messages.error(request, 'There was a problem with your report submission')
+            if not file_form.is_valid():
+                messages.error(request, 'There was a problem with your file submission')
+
     else:
         report_form = ReportForm()
         file_form = FileForm()
