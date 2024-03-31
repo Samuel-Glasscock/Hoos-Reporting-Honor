@@ -1,31 +1,30 @@
-{% extends "submit/base.html" %}
-
-{% block content %}
+{% extends "submit/base.html" %} {% block content %}
 <h1>Completed Reports</h1>
 
 <table>
-    <thead>
-        <tr>
-            <th>Report ID</th>
-            <th>Submitted By</th>
-            <th>Date</th>
-            <th>Files</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for report in reports %}
-        <tr>
-            <td>{{ report.id }}</td>
-            <td>{{ report.user.username }}</td>
-            <td>{{ report.submission_date }}</td>
-            <td>
-                {% for file in report.file_set.all %}
-                <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br> # adjust to how want to display
-                {% endfor %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+  <thead>
+    <tr>
+      <th>Report ID</th>
+      <th>Submitted By</th>
+      <th>Date</th>
+      <th>Files</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for report in reports %}
+    <tr>
+      <td><a href="{% url 'shared:report_detail' report.id %}">{{report.id}}</a></td>
+      <td>{{ report.user.username if report.user else "Anonymous" }}</td>
+      <td>{{ report.submission_date }}</td>
+      <td>
+        {% for file in report.file_set.all %}
+        <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a
+        ><br />
+        # adjust to how want to display {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 
 {% endblock %}

@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.http import HttpResponse
 from .models import Report, File
 import boto3
@@ -23,8 +23,15 @@ def is_site_admin(user):
 @login_required
 @user_passes_test(is_site_admin)
 def admin_report_list(request):
-    completed_reports = completed_reports.prefetch_related('file_set')
-    return render(request, 'reports/admin_report_list.html', {'reports': completed_reports})
+    completed_reports = Report.object.prefetch_related('file_set').all()
+    return render(request, 'shared/admin_home.html', {'reports': completed_reports})
+
+@login_required
+@user_passes_test(is_site_admin)
+# @permission_required('shared.view_report', raise_exception=True)
+def report_detail(request, report_id):
+    report = get_object_or_404(Report.objects.prefetch_related('file_set'), pk=report_id)
+    return render(request, 'shared/admin_home.html', {'report': report})
 
 def upload_test(request):
     if request.method == 'POST':
