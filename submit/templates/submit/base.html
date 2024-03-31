@@ -104,8 +104,17 @@
 
     <!-- Begin page content -->
     <main role="main" class="container">
+      <!-- Display messages -->
+      {% if messages %}
+      <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
       {% block main %}
       <!-- actual submission content -->
+     
       {% endblock %}
     </main>
 

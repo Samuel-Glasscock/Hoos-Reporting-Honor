@@ -45,8 +45,14 @@ def report(request):
                 File.objects.create(report=new_report, file=file)
             messages.success(request, 'You have successfully submitted your report.')
             return redirect('submit:submission_complete')
+        
+        if not report_form.is_valid():
+            messages.error(request, 'There was a problem with your report submission')
+        if not file_form.is_valid():
+            messages.error(request, 'There was a problem with your file submission')
         else:
             messages.error(request, 'There was a problem with your submission.')
+            
     else:
         report_form = ReportForm()
         file_form = FileForm()
