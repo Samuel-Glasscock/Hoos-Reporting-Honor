@@ -14,7 +14,13 @@
     {% for report in reports %}
     <tr>
       <td><a href="{% url 'shared:report_detail' report.id %}">{{report.id}}</a></td>
-      <td>{{ report.user.username if report.user else "Anonymous" }}</td>
+      <td>
+        {% if report.user %}
+            {{report.user.username}}
+        {% else %}
+            Anonymous
+        {% endif %}
+      </td>
       <td>{{ report.submission_date }}</td>
       <td>
         {% for file in report.file_set.all %}
