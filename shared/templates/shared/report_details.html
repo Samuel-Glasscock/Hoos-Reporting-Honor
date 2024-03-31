@@ -10,7 +10,7 @@
 <ul>
     {% for file in report.file_set.all %}
     <li>
-        <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+        <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}" target="_blank">{{ file.file.name }}</a>
     </li>
     {% endfor %}
 </ul>
