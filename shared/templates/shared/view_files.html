@@ -1,3 +1,6 @@
+{% extends "submit/base.html" %} 
+{% block main %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +9,15 @@
     <title>File Upload Test</title>
 </head>
 <body>
-    <h1>View Files</h1>
+    <h1>Admin home: View Files</h1>
     <ul>
         {% for file in files %}
-            <img src="{{ file.get_file_url }}" alt="{{ file.name }}">
+            <!-- GPT -->
+            <li>
+                <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}" target="_blank">View Image</a>
+            </li>        
         {% endfor %}
     </ul>
 </body>
 </html>
+{% endblock %}
