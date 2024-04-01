@@ -85,3 +85,5 @@ def submission_complete(request):
 #         file_form = FileForm()
 #     return render(request, 'submit/report_submission.html', {'report_form': report_form, 'file_form': file_form})
 
+def incident_categories(request):
+    return render(request, 'submit/incident_categories.html', {})
