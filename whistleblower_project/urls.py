@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import render
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +25,6 @@ urlpatterns = [
     path('manage/', include('manage.urls')),
     path('history/', include('history.urls')),
     path('accounts/', include('allauth.urls')),
-    path('', include('shared.urls')),
-    # path('shared/', include('shared.urls')),
+    path('shared/', include('shared.urls')),
+    path('', render("shared/home.html")),
     ]
