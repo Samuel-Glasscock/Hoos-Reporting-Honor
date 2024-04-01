@@ -7,6 +7,7 @@
     <tr>
       <th>Report ID</th>
       <th>Submitted By</th>
+      <th>Status</th>
       <th>Date</th>
       <th>Files</th>
     </tr>
@@ -18,11 +19,11 @@
       <td>
         {% if report.user %} 
             {{report.user.username}} 
-            {{report.status}}
         {% else %}
             Anonymous
         {% endif %}
       </td>
+      <td>{{ report.status }}</td>
         <td>{{ report.submission_date }}</td>
       <td>
         <a href="{% url 'shared:report_detail' report.id %}">View Report</a>
