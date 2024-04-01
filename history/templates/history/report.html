@@ -11,6 +11,7 @@
 <p>Incident Location: {{ report.incident_location }}</p>
 <p>Students Involved: {{ report.students_involved }}</p>
 <p>Report Summary: {{ report.report_summary }}</p>
+<h2>Associated Files</h2>
 <ul>
     {% for file in report.files.all %}
     <li>
