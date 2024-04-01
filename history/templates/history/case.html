@@ -1,6 +1,6 @@
-{% load bootstrap5 %} {% bootstrap_css %}
-
-{% block content %}
+{% extends 'submit/base.html' %}
+{% block title %}Case{% endblock%}
+{% block main %}
 <p>Report {{ id }}</p>
 <p>Report Text: {{report.report_text}}</p>
 <p>Status {{report.status}}</p>
