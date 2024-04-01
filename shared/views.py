@@ -24,7 +24,7 @@ def is_site_admin(user):
 @user_passes_test(is_site_admin)
 def admin_report_list(request):
     completed_reports = Report.objects.prefetch_related('file_set').all()
-    return render(request, 'shared/admin_home.html', {'reports': completed_reports})
+    return render(request, 'history/admin_home.html', {'reports': completed_reports})
 
 @login_required
 @user_passes_test(is_site_admin)
