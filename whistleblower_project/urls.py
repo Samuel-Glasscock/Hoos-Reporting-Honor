@@ -26,5 +26,5 @@ urlpatterns = [
     path('history/', include('history.urls')),
     path('accounts/', include('allauth.urls')),
     path('', lambda request: redirect('home/', permanent=True)),
-    # path('shared/', include('shared.urls')),
+    path('home/', include('shared.urls')),
     ]
