@@ -11,9 +11,9 @@
 <p>Incident Location: {{ report.incident_location }}</p>
 <p>Students Involved: {{ report.students_involved }}</p>
 <p>Report Summary: {{ report.report_summary }}</p>
-<h2>Associated Files</h2>
+<p>Associated Files</p>
 <ul>
-    {% for file in report.files.all %}
+    {% for file in report.file_set.all %}
     <li>
         <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}" target="_blank">{{ file.file.name }}</a>
     </li>
