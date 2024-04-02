@@ -46,11 +46,11 @@ def report(request):
             messages.success(request, 'You have successfully submitted your report.')
             return redirect('submit:submission_complete')
         
-        else:
-            if not report_form.is_valid():
-                messages.error(request, 'There was a problem with your report submission')
-            if not file_form.is_valid():
-                messages.error(request, 'There was a problem with your file submission')
+        # else:
+        #     if not report_form.is_valid():
+        #         messages.error(request, 'There was a problem with your report submission')
+        #     if not file_form.is_valid():
+        #         messages.error(request, 'There was a problem with your file submission')
 
     else:
         report_form = ReportForm()
