@@ -76,7 +76,7 @@
 
              <ul class="navbar-nav ml-auto">
                 <!-- Conditional rendering based on user's sign-in status -->
-                {% if user.profile.is_authenticated %}
+                {% if user.is_authenticated %}
                     {% if user.profile.is_admin %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'history:dashboard' %}">

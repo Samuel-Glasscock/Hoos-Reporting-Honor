@@ -26,20 +26,6 @@ def report_detail(request, report_id):
     report = get_object_or_404(Report.objects.prefetch_related('file_set'), pk=report_id)
     return render(request, 'shared/report_details.html', {'report': report})
 
-def upload_test(request):
-    if request.method == 'POST':
-        # get report 0 to test
-        report = Report.objects.get(pk=0)
-        for file in request.FILES.getlist('file'):
-            File.objects.create(report=report, file=file)
-        return redirect('404.html')
-    return render(request, 'shared/upload_test.html')
-
-def view_files(request):
-    # get all file objects from s3
-    files = File.objects.all()
-    return render(request, 'shared/view_files.html', {'files': files})
-
 def render_object_from_s3(request, s3_object_url):
     s3 = boto3.client('s3')
     parsed_url = urlparse(s3_object_url)
