@@ -15,7 +15,7 @@ def lookup(request):
         return render(request, "history/lookup.html", {'form': CaseForm(), 'error': "Invalid password"})
     else:
         form = CaseForm()
-    return render(request, "history/lookup.html", {'form': form})
+        return render(request, "history/lookup.html", {'form': form})
 
 def case(request, id):
     report_model = Report.objects.get(id=id)
