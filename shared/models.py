@@ -21,7 +21,7 @@ class Report(models.Model):
     incident_category = models.CharField(max_length=255, default = 'Unknown')
     incident_location = models.CharField(max_length=255, default = 'Unknown')
     students_involved = models.TextField(default = 'Unknown')
-    # report_text = models.TextField(default = "")
+    report_text = models.TextField(default = "") # THIS IS THE FIELD FOR EDITING NOTES
     report_summary = models.TextField(default = 'summary to be provided')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
 
