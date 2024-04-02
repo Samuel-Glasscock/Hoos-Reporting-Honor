@@ -64,11 +64,11 @@
                   <a class="dropdown-item" href="{% url 'history:lookup' %}">Find Report</a
                   >
                 </li>
-                <!-- case id lookup -->
+                {% comment %} <!-- case id lookup -->
                 <li><hr class="dropdown-divider" /></li>
                 <li>
                   <a class="dropdown-item" href="{% url 'history:dashboard' %}">Dashboard (must login)</a>
-                </li>
+                </li> {% endcomment %}
                 <!--  if not logged in, will lead them directly to login page. if not, directs to appropriate dashboard? -->
               </ul>
             </li>
