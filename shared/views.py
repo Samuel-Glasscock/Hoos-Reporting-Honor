@@ -8,14 +8,7 @@ from urllib.parse import urlparse
 
 # Create your views here.
 def home(request):
-    if request.user.is_authenticated:
-        if hasattr(request.user, "profile") and request.user.profile.is_admin:
-        # call shared:view_files
-            return redirect('shared:admin_report_list')
-        else: # home page for logged in user?
-            return render(request, "shared/home.html")
-    else: # home page for anonymous user?
-        return render(request, "shared/home.html")  
+    return render(request, "shared/home.html")  
 
 def is_site_admin(user):
     return user.is_authenticated and (user.is_staff or user.profile.is_admin)
