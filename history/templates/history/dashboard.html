@@ -1,28 +1,32 @@
-{% extends 'submit/base.html' %}
-{% block title %}Dashboard{% endblock%}
+{% extends "submit/base.html" %} 
 {% block main %}
-<h1>All Reports</h1>
+<h1>Completed Reports</h1>
+
 <table>
   <thead>
     <tr>
-      <th>ID</th>
+      <th>Report ID</th>
+      <th>Submitted By</th>
       <th>Status</th>
-      <th>User</th>
-      <th>Actions</th>
+      <th>Date</th>
+      <th>Files</th>
     </tr>
   </thead>
   <tbody>
     {% for report in reports %}
     <tr>
       <td>{{ report.id }}</td>
-      <td>{{ report.status }}</td>
-      {% if report.user %}
-      {{ report.user.username }}
-    {% else %}
-    Anonymous
-    {% endif %}
       <td>
-        <a href="{% url 'history:report' report.id %}">View</a>
+        {% if report.user %} 
+            {{report.user.username}} 
+        {% else %}
+            Anonymous
+        {% endif %}
+      </td>
+      <td>{{ report.status }}</td>
+        <td>{{ report.submission_date }}</td>
+      <td>
+        <a href="{% url 'history:report' report.id %}">View Report</a>
       </td>
     </tr>
     {% endfor %}
