@@ -47,3 +47,8 @@ def report(request, id):
         report_model.status = "PENDING"
         report_model.save()
     return render(request, "history/report.html", {"report": report_model})
+
+def delete(request, id):
+    report_model = Report.objects.get(id=id)
+    report_model.delete()
+    return redirect("history:dashboard")

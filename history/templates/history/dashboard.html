@@ -10,6 +10,7 @@
       <th>Status</th>
       <th>Date</th>
       <th>Files</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -27,6 +28,11 @@
         <td>{{ report.submission_date }}</td>
       <td>
         <a href="{% url 'history:report' report.id %}">View Report</a>
+      </td>
+      <td>
+        <form action="{% url 'history:delete' report.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
       </td>
     </tr>
     {% endfor %}
