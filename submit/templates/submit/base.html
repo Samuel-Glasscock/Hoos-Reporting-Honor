@@ -99,7 +99,7 @@
            <!-- Sign out button -->
           <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
-              <form class="form-inline my-2 my-lg-0" action="{% url 'login:logout_view' %}" method="post">
+              <form class="form-inline my-2 my-lg-0" action="{% url 'accounts:logout' %}" method="post">
               {% csrf_token %}
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Sign Out</button>
               </form>
