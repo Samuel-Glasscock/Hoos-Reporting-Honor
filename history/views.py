@@ -46,7 +46,7 @@ def report(request, id):
     if report_model.status == "NEW":
         report_model.status = "PENDING"
         report_model.save()
-    return render(request, "history/report.html", {"report": report_model})
+    return render(request, "history/report_details.html", {"report": report_model})
 
 def delete(request, id):
     report_model = Report.objects.get(id=id)

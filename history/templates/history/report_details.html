@@ -23,28 +23,31 @@
 <p>Admin Notes: {{ report.report_text }}</p>
 
 
-
-
-
 {% if user.profile.is_admin %}
+<div>
+    <form action="", method="post">
+        {% csrf_token %}
+        <input
+        type="text"
+        id="notes"
+        name="notes"
+        class="form-control"
+        placeholder="Notes"
+        />
+        <div style="margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" m>Edit</button>
+        </div>
+    </form>
+</div>
 
-<form action="", method="post">
-    {% csrf_token %}
-    <input
-    type="text"
-    id="notes"
-    name="notes"
-    class="form-control"
-    placeholder="Notes"
-    />
-    <button type="submit" class="btn btn-primary">Edit</button>
-</form>
+<div style="margin-top: 10px; margin-bottom: 10px;">
+    <form action="", method="post">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="resolved">
+        <button type="submit" class="btn btn-primary">Resolve</button>
+    </form>
+</div>
 
-<form action="", method="post">
-    {% csrf_token %}
-    <input type="hidden" name="status" value="resolved">
-    <button type="submit" class="btn btn-primary">Resolve</button>
-</form>
 
 {% endif %}
 
