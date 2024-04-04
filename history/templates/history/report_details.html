@@ -24,7 +24,7 @@
 
 
 {% if user.profile.is_admin %}
-<div style="margin-top: 10px;">
+<div>
     <form action="", method="post">
         {% csrf_token %}
         <input
@@ -34,7 +34,9 @@
         class="form-control"
         placeholder="Notes"
         />
-        <button type="submit" class="btn btn-primary" m>Edit</button>
+        <div style="margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" m>Edit</button>
+        </div>
     </form>
 </div>
 
