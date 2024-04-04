@@ -2,15 +2,15 @@
 {% block main %}
 <h1>Completed Reports</h1>
 
-<table>
-  <thead>
+<table class="table table-hover table-responsive-md">
+  <thead class="thead-dark">
     <tr>
-      <th>Report ID</th>
-      <th>Submitted By</th>
-      <th>Status</th>
-      <th>Date</th>
-      <th>Files</th>
-      <th>Delete</th>
+      <th scope="col">Report ID</th>
+      <th scope="col">Submitted By</th>
+      <th scope="col">Status</th>
+      <th scope="col">Date</th>
+      <th scope="col">Files</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -27,12 +27,12 @@
       <td>{{ report.status }}</td>
         <td>{{ report.submission_date }}</td>
       <td>
-        <a href="{% url 'history:report' report.id %}">View Report</a>
+        <a href="{% url 'history:report' report.id %}" class="btn btn-primary btn-sm">View Report</a>
       </td>
       <td>
         <form action="{% url 'history:delete' report.id %}" method="post">
           {% csrf_token %}
-          <button type="submit">Delete</button>
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
         </form>
       </td>
     </tr>
