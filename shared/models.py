@@ -48,7 +48,7 @@ class Report(models.Model):
                 print(f"Error deleting file {file.file.name}: {e}")
             file.delete()
         # delete the report object from db
-        super().delete(*args, **kwargs)
+        super(Report, self).delete(*args, **kwargs)
     
 class File(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
