@@ -33,6 +33,7 @@
         <form action="{% url 'history:delete' report.id %}" method="post">
           {% csrf_token %}
           <button type="submit">Delete</button>
+        </form>
       </td>
     </tr>
     {% endfor %}
