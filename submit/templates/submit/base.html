@@ -23,7 +23,7 @@
         <div class="top-strip"></div>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-custom">
-        <a class="navbar-brand ps-4" href="">Hoos Reporting Honor</a>
+        <a class="navbar-brand ps-4" href="{% url 'shared:home' %}">Hoos Reporting Honor</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -43,7 +43,7 @@
               >
             </li>
               <li class="nav-item active">
-              <a class="nav-link" href="/submit/incident_categories.html">Incident Categories<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'submit:incident_categories'%}">Incident Categories<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -58,18 +58,17 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a class="dropdown-item" href="/submit">Make a Report</a>
+                  <a class="dropdown-item" href="{% url 'submit:start_submission' %}">Make a Report</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/history/lookup"
-                    >Find Report</a
+                  <a class="dropdown-item" href="{% url 'history:lookup' %}">Find Report</a
                   >
                 </li>
-                <!-- case id lookup -->
+                {% comment %} <!-- case id lookup -->
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="#">Dashboard (must login)</a>
-                </li>
+                  <a class="dropdown-item" href="{% url 'history:dashboard' %}">Dashboard (must login)</a>
+                </li> {% endcomment %}
                 <!--  if not logged in, will lead them directly to login page. if not, directs to appropriate dashboard? -->
               </ul>
             </li>
@@ -77,25 +76,34 @@
 
              <ul class="navbar-nav ml-auto">
                 <!-- Conditional rendering based on user's sign-in status -->
-                {% if user.profile.is_authenticated %}
+                {% if user.is_authenticated %}
                     {% if user.profile.is_admin %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/shared/admin_home">
+                            <a class="nav-link" href="{% url 'history:dashboard' %}">
                                 <i class="fas fa-sign-in-alt"></i> Account
                             </a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/shared/common">
+                            <a class="nav-link" href="{% url 'history:dashboard' %}">
                                 <i class="fas fa-sign-in-alt"></i> Account
                             </a>
                         </li>
                     {% endif %}
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Sign In</a>
+                        <a class="nav-link" href="{% url 'login:login_view' %}">Sign In</a>
                     </li>
                 {% endif %}
+              </ul>
+           <!-- Sign out button -->
+            <ul class="navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+                <form class="form-inline my-2 my-lg-0" action="{% url 'account_logout' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Sign Out</button>
+                </form>
+              {% endif %}
             </ul>
 
         </div>
@@ -120,9 +128,7 @@
 
     <footer class="footer">
       <div class="container">
-        {% block footer %}
-        <!-- !!! NEED TO DETERMINE footer content -->
-        {% endblock %}
+          <div class="text-center text-muted p-3">CS3240 Team A22</div>
       </div>
     </footer>
 

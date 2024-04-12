@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" style="height: 100%">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    {% load bootstrap5 %} {% bootstrap_css %}
-  </head>
-  <body>
+{% extends 'submit/base.html' %}
+{% block title %}Login Page{% endblock%}
+{% block main %}
+    {% load static %}
     <div class="d-flex justify-content-center align-items-center vh-100">
       <div class="text-center">
         <div class="mb-3">
@@ -42,5 +37,6 @@
         <a href="{% url 'submit:start_submission' %}" class="btn btn-secondary">Submit An Anonymous Report</a>
       </div>
     </div>
-  </body>
-</html>
+    </div>
+{% endblock %}
+
