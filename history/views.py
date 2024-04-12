@@ -23,10 +23,11 @@ def case(request, id):
 
 @login_required
 def dashboard(request):
+    profile = request.user.profile
     user = request.user
     if user.is_superuser:
         reports = Report.objects.filter(user=user)
-    elif user.is_admin:
+    elif hasattr(user, 'profile') and profile.is_admin:
         reports = Report.objects.all()
     else:
         reports = Report.objects.filter(user=user)
