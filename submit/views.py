@@ -42,10 +42,6 @@ def report(request):
             #Generating Case ID hash
             new_report.case_hash = uuid.uuid4()
 
-            #Creating a password for the Case ID
-            password_length = 8
-            password_characters = string.ascii_letters + string.digits
-            new_report.case_hash_password = ''.join(random.choice(password_characters) for i in range(password_length))
             new_report.save()
 
             # check if file was uploaded
@@ -54,7 +50,7 @@ def report(request):
             if file:
                 File.objects.create(report=new_report, file=file)
             messages.success(request, 'You have successfully submitted your report.')
-            return redirect('submit:submission_complete')
+            return render(request, 'submit/submission_complete.html', {'new_report': new_report})
         
         # else:
         #     if not report_form.is_valid():
