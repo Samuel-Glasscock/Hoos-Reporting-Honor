@@ -17,7 +17,6 @@ class Report(models.Model):
         ('lying', 'Lying'),
         ('cheating', 'Cheating'),
         ('stealing', 'Stealing'),
-        ('unknown', 'Unknown'),
     ]
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
