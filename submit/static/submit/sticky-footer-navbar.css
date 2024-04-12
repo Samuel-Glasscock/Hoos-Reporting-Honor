@@ -7,10 +7,11 @@ html {
 body {
   /* Margin bottom by footer height */
   font-family: 'Franklin Gothic', Arial, sans-serif;
-  margin-bottom: 60px;
+  padding-bottom: 60px;
 }
 .footer {
   position: absolute;
+  left: 0;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
@@ -29,6 +30,7 @@ body {
   height: 75px;
   background-color: #f66733;
   width: 100%;
+  margin-bottom: 0; /* removes gap between nav bar and image */
 }
 
 a, a:visited {
