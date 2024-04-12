@@ -1,3 +1,7 @@
+import random
+import string
+import uuid
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import StartSubmissionForm 
@@ -35,7 +39,9 @@ def report(request):
             student_involved_list = [student.strip() for student in students_involved_raw.split(',')]
             # if we want to process the list of students later, we can do so here such as accessing them to have their email later
             new_report.students_involved = ', '.join(student_involved_list)
-            
+            #Generating Case ID hash
+            new_report.case_hash = uuid.uuid4()
+
             new_report.save()
 
             # check if file was uploaded
@@ -44,7 +50,7 @@ def report(request):
             if file:
                 File.objects.create(report=new_report, file=file)
             messages.success(request, 'You have successfully submitted your report.')
-            return redirect('submit:submission_complete')
+            return render(request, 'submit/submission_complete.html', {'new_report': new_report})
         
         # else:
         #     if not report_form.is_valid():
