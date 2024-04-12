@@ -13,12 +13,17 @@ class Report(models.Model):
         PENDING = 'PENDING'
         APPROVED = 'APPROVED'
         REJECTED = 'REJECTED'
+    INCIDENT_CATEGORIES = [
+        ('lying', 'Lying'),
+        ('cheating', 'Cheating'),
+        ('stealing', 'Stealing'),
+    ]
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
     submission_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     incident_date = models.DateField(default = timezone.now) # include default for existing models in db
-    incident_category = models.CharField(max_length=255, default = 'Unknown')
+    incident_category = models.CharField(max_length=255, choices=INCIDENT_CATEGORIES, default = 'Unknown')
     incident_location = models.CharField(max_length=255, default = 'Unknown')
     students_involved = models.TextField(default = 'Unknown')
     report_text = models.TextField(default = "") # THIS IS THE FIELD FOR EDITING NOTES
