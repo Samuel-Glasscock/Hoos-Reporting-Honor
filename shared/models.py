@@ -13,11 +13,7 @@ class Report(models.Model):
         PENDING = 'PENDING'
         APPROVED = 'APPROVED'
         REJECTED = 'REJECTED'
-    # INCIDENT_CATEGORIES = [
-    #     ('lying', 'Lying'),
-    #     ('cheating', 'Cheating'),
-    #     ('stealing', 'Stealing'),
-    # ]
+        
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
     submission_date = models.DateTimeField(auto_now_add=True)

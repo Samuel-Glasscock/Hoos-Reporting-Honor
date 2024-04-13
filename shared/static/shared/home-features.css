@@ -1,25 +1,55 @@
-.card.h-100 {
-    border-radius: 10px; /* Rounded corners */
-    overflow: hidden; /* Ensures nothing spills out of the card */
-    position: relative;
-    padding-bottom: 100%; /* This maintains a 1:1 aspect ratio */
-    height: 0; /* Allows padding-bottom to take over height */
+/*.card.h-100 {*/
+/*    border-radius: 10px; !* Rounded corners *!*/
+/*    overflow: hidden; !* Ensures nothing spills out of the card *!*/
+/*    position: relative;*/
+/*    padding-bottom: 100%; !* This maintains a 1:1 aspect ratio *!*/
+/*    height: 0; !* Allows padding-bottom to take over height *!*/
+/*}*/
+
+/*.card-body {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+.btn-custom {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;  /* Makes each button expand to fill its column */
+  height: 100px;
+  border: 2px solid #f66733;
+  border-radius: 10px;
+  color: #f66733;
+  text-decoration: none;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.card-body {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.btn-custom:hover {
+  background-color: #f66733;
+  color: white;
+}
+
+.button-icon {
+  width: 50px;
+  height: auto;
+  transition: filter 0.3s;
+}
+
+.btn-custom:hover .button-icon {
+  filter: brightness(0) invert(1);
 }
 
 .banner {
-  height: 400px;
+  height: 500px;
   background: url('images/lawn.jpg') no-repeat center center;
   background-size: cover;
   position: relative;

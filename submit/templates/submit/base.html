@@ -127,26 +127,27 @@
         <!-- trying to put banner here :( -->
     {% endblock %}
     <div class="container">
-    <!-- Display messages -->
-    {% if messages %}
-        <div class="container mt-3">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% block main %}
-        <!-- actual submission content -->
-    {% endblock %}
+        <!-- Display messages -->
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block main %}
+            <!-- actual submission content -->
+        {% endblock %}
     </div>
 </main>
 
-    <footer class="footer">
+<footer class="footer">
     <div class="container">
-        <div class="text-center text-muted p-3">
+        <div class="text-center p-3">
             CS3240 Team A22
             This system is a class project and is not monitored. Please do not submit real information.
-            If you need to report an honor offense, please visit <a href="https://honor.virginia.edu/contact">UVA Honor Reporting Page</a>.
+            If you need to report an honor offense, please visit <a href="https://honor.virginia.edu/contact">UVA Honor
+            Reporting Page</a>.
         </div>
     </div>
 </footer>
