@@ -45,7 +45,7 @@ def report(request):
             print(f"Generated Case ID hash at generation: {new_report.case_hash}")
 
             new_report.save()
-            request.session['case_hash'] = str(new_report.case_hash)
+            request.session['report_id'] = str(new_report.id)
             print(f"Generated Case ID hash at save: {new_report.case_hash}")
 
             # check if file was uploaded
@@ -53,7 +53,6 @@ def report(request):
             file = file_form.cleaned_data.get('file_field')
             if file:
                 File.objects.create(report=new_report, file=file)
-                print(f"Generated Case ID hash at file addition: {new_report.case_hash}")
             # messages.success(request, 'You have successfully submitted your report.')
             return redirect(reverse('submit:submission_complete'))
         
@@ -70,20 +69,48 @@ def report(request):
 
 
 def submission_complete(request):
-    case_hash = request.session.get('case_hash')
-
-    print(f"Case ID hash in session: {case_hash}")
-    
-    if not case_hash:
+    report_id = request.session.get('report_id')
+    # Access the report's ID from the session
+    if not report_id:
         messages.error(request, "No recent submission found.")
-        return redirect(reverse('shared:home'))
-    context = {
-        'case_hash': case_hash
-    }
+        return redirect('shared:home')
+    
+    # Retrieve the report from the database using the ID
+    try:
+        report = Report.objects.get(id=report_id)
+    except Report.DoesNotExist:
+        messages.error(request, "Report not found.")
+        return redirect('shared:home')
+    
+    case_hash = report.case_hash
+    request.session.pop('report_id', None)
+    context = {'case_hash': case_hash}
 
-    request.session.pop('case_hash', None)
     return render(request, 'submit/submission_complete.html', context)
 
+
+# def report_submission(request):
+#     if request.method == 'POST':
+#         report_form = ReportForm(request.POST)
+#         file_form = FileForm(request.POST, request.FILES)
+#         if report_form.is_valid() and file_form.is_valid():
+#             new_report = report_form.save(commit=False)
+#             if request.user.is_authenticated:
+#                 new_report.user = request.user
+#             else: 
+#                 new_report.user = None
+#             new_report.save()
+
+#             files = request.FILES.getlist('file_field')
+#             for f in files:
+#                 File.objects.create(report=new_report, file=f)
+
+#             return redirect('submit:submission_complete')
+        
+#     else:  
+#         report_form = ReportForm()
+#         file_form = FileForm()
+#     return render(request, 'submit/report_submission.html', {'report_form': report_form, 'file_form': file_form})
 
 def incident_categories(request):
     return render(request, 'submit/incident_categories.html', {})
