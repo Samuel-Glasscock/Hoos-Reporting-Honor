@@ -7,13 +7,20 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
-                    {{ form.id }}
+                    {{ form.report_hash}}
+                    {% if form.report_hash.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.report_hash.errors }}
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="mb-3">
-                    {{ form.user_password }}
-                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
