@@ -41,8 +41,10 @@ def report(request):
             new_report.students_involved = ', '.join(student_involved_list)
             #Generating Case ID hash
             new_report.case_hash = uuid.uuid4()
+            print(f"Generated Case ID hash at generation: {new_report.case_hash}")
 
             new_report.save()
+            print(f"Generated Case ID hash at save: {new_report.case_hash}")
 
             # check if file was uploaded
             # if file_form.is_valid():
@@ -64,8 +66,8 @@ def report(request):
     return render(request, 'submit/report.html', {'report_form': report_form, 'file_form': file_form})
 
 
-def submission_complete(request):
-    return render(request, 'submit/submission_complete.html', {})
+# def submission_complete(request):
+#     return render(request, 'submit/submission_complete.html', {})
 
 
 # def report_submission(request):
