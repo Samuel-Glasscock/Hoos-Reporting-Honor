@@ -1,3 +1,3 @@
 from django.contrib import admin
+from shared.models import Profile
 
-# Register your models here.

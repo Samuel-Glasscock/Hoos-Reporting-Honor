@@ -1,7 +1,21 @@
 {% extends 'submit/base.html' %}
 {% block title %}Submission Complete{% endblock %}
+
+{% block header %}
+    <link href="../../static/submit/submission-features.css" rel="stylesheet">
+{% endblock %}
+
+{% block banner %}
+    <div class="submit-jumbotron">
+        <h1 class="text-center mt-5">You have successfully submitted a report!</h1>
+    </div>
+{% endblock %}
+
 {% block main %}
-    <h1>You have successfully submitted a report!</h1>
-    <p>Case ID: {{ new_report.case_hash }}</p>
-    <p>Please save this Case ID if you want to check the status of your report later.</p>
+<h1>You have successfully submitted a report!</h1>
+<p>Case ID: {{ new_report.case_hash }}</p>
+<p>Please save this Case ID if you want to check the status of your report later.</p>
+<div class="container">
+    <p>Return to <a href="{% url 'shared:home' %}">home</a>.</p>
+</div>
 {% endblock %}

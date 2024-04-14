@@ -20,11 +20,14 @@ def lookup(request):
 def case(request, id):
     report_model = Report.objects.get(id=id)
     return render(request, "history/case.html", {"id": id, "report": report_model})
+
 @login_required
 def dashboard(request):
     profile = request.user.profile
     user = request.user
-    if profile.is_admin:
+    if user.is_superuser:
+        reports = Report.objects.filter(user=user)
+    elif hasattr(user, 'profile') and profile.is_admin:
         reports = Report.objects.all()
     else:
         reports = Report.objects.filter(user=user)
