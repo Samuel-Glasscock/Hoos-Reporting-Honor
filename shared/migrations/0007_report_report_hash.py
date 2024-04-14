@@ -3,16 +3,16 @@
 from django.db import migrations, models
 import uuid
 
-def generate_uuid_for_reports(apps, schema_editor):
-    Report = apps.get_model('shared', 'Report')
-    existing_uuids = set(Report.objects.all().values_list('report_hash', flat=True))
-    for report in Report.objects.all():
-        new_uuid = uuid.uuid4()
-        while new_uuid in existing_uuids:
-            new_uuid = uuid.uuid4()
-        report.report_hash = new_uuid
-        report.save(update_fields=['report_hash'])
-        existing_uuids.add(new_uuid)
+# def generate_uuid_for_reports(apps, schema_editor):
+#     Report = apps.get_model('shared', 'Report')
+#     existing_uuids = set(Report.objects.all().values_list('report_hash', flat=True))
+#     for report in Report.objects.all():
+#         new_uuid = uuid.uuid4()
+#         while new_uuid in existing_uuids:
+#             new_uuid = uuid.uuid4()
+#         report.report_hash = new_uuid
+#         report.save(update_fields=['report_hash'])
+#         existing_uuids.add(new_uuid)
 
 class Migration(migrations.Migration):
 
@@ -26,5 +26,5 @@ class Migration(migrations.Migration):
             name='report_hash',
             field=models.UUIDField(default=uuid.uuid4, editable=False, unique=True),
         ),
-        migrations.RunPython(generate_uuid_for_reports, reverse_code=migrations.RunPython.noop),
+        # migrations.RunPython(generate_uuid_for_reports, reverse_code=migrations.RunPython.noop),
     ]
