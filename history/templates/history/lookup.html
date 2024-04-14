@@ -1,18 +1,19 @@
 {% extends 'submit/base.html' %}
-{% block title %}Lookup{% endblock%}
+{% block title %}Lookup{% endblock %}
 {% block main %}
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="text-center">
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            {{ form.id }}
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="text-center">
+            <h4 class="pb-1">To find and access to any report you have submitted while either logged in or while anonymous, please input the Case ID hash that was displayed on screen after submitting the report.</h4>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.id }}
+                </div>
+                <div class="mb-3">
+                    {{ form.user_password }}
+                </div>
+            </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        <div class="mb-3">
-            {{ form.user_password }}
-        </div>
-    </form>
-    <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-</div>
 {% endblock %}
