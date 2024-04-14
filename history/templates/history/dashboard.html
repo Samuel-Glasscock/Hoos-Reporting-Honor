@@ -16,7 +16,6 @@
       <th scope="col">Status</th>
       <th scope="col">Date</th>
       <th scope="col">Files</th>
-      <!-- <th scope="col">Delete</th> -->
     </tr>
   </thead>
   <tbody>
@@ -41,12 +40,6 @@
           <button type="submit" class="btn btn-primary btn-sm">View Report</button>
         </form>
       </td>
-      <!-- <td>
-        <form action="{% url 'history:delete' report.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-        </form>
-      </td> -->
     </tr>
     {% endfor %}
   </tbody>
