@@ -1,24 +1,25 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from shared.models import Report
-from .forms import CaseForm
+from .forms import CaseSearchForm
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 
 def lookup(request):
     if request.method == "POST":
-        id = request.POST.get("id")
-        password = request.POST.get("user_password")
-        report_model = Report.objects.get(id=id)
-        if report_model.user.password == password:
-            return redirect("history:case", id=id)
-        return render(request, "history/lookup.html", {'form': CaseForm(), 'error': "Invalid password"})
-    else:
-        form = CaseForm()
+        form = CaseSearchForm(request.POST)
+        if form.is_valid():
+            uuid = form.cleaned_data['report_hash']
+            report = get_object_or_404(Report, report_hash=uuid)
+            return render(request, "history/report_details.html", {"report": report})
+        else:
+            return render(request, "history/lookup.html", {'form': form, 'error': "Invalid case ID"})
+    else: 
+        form = CaseSearchForm()
         return render(request, "history/lookup.html", {'form': form})
 
-def case(request, id):
-    report_model = Report.objects.get(id=id)
+
+def case(request, case_hash):
+    report_model = get_object_or_404(Report, case_hash=case_hash)
     return render(request, "history/case.html", {"id": id, "report": report_model})
 
 @login_required
