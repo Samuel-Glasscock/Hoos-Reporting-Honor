@@ -72,6 +72,8 @@ def report(request):
 def submission_complete(request):
     case_hash = request.session.get('case_hash')
 
+    print(f"Case ID hash in session: {case_hash}")
+    
     if not case_hash:
         messages.error(request, "No recent submission found.")
         return redirect(reverse('shared:home'))
