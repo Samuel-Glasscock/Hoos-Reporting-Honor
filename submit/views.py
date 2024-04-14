@@ -42,11 +42,9 @@ def report(request):
             new_report.students_involved = ', '.join(student_involved_list)
             #Generating Case ID hash
             new_report.case_hash = uuid.uuid4()
-            print(f"Generated Case ID hash at generation: {new_report.case_hash}")
 
             new_report.save()
             request.session['report_id'] = str(new_report.id)
-            print(f"Generated Case ID hash at save: {new_report.case_hash}")
 
             # check if file was uploaded
             # if file_form.is_valid():
