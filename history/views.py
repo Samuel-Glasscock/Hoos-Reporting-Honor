@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from shared.models import Report
 from .forms import CaseSearchForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 
 def lookup(request):
@@ -34,9 +35,12 @@ def dashboard(request):
         reports = Report.objects.filter(user=user)
     return render(request, "history/dashboard.html", {'reports': reports})
 
+@login_required
+@require_POST
 def report(request, id):
+    report_model = get_object_or_404(Report, id=id)
+
     if request.method == "POST":
-        report_model = Report.objects.get(id=id)
         if "notes" in request.POST:
             report_model.report_text = request.POST.get("notes")
             report_model.save()
@@ -48,7 +52,7 @@ def report(request, id):
         if "change_status_to_pending" in request.POST:
             report_model.status = "PENDING"
             report_model.save()
-            return redirect("history:report", id=id)
+            return redirect("history:report_details", id=id)
 
     return render(request, "history/report_details.html", {"report": report_model})
 
