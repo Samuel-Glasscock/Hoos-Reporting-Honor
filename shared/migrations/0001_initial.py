@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.IntegerField(primary_key=True, serialize=False)),
                 ('submission_date', models.DateTimeField(auto_now_add=True)),
                 ('edit_date', models.DateTimeField(auto_now=True)),
-                ('report_text', models.TextField()),
+                ('report_text', models.TextField(default="")),
                 ('status', models.CharField(choices=[('PENDING', 'Pending'), ('APPROVED', 'Approved'), ('REJECTED', 'Rejected')], default='PENDING', max_length=20)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
