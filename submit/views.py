@@ -8,6 +8,7 @@ from .forms import StartSubmissionForm
 from shared.forms import ReportForm, FileForm
 from shared.models import Report, File
 from django.core.files.storage import default_storage
+from django.urls import reverse
 
 def start_submission(request):
     if request.method == 'POST':
@@ -44,6 +45,7 @@ def report(request):
             print(f"Generated Case ID hash at generation: {new_report.case_hash}")
 
             new_report.save()
+            request.session['case_hash'] = str(new_report.case_hash)
             print(f"Generated Case ID hash at save: {new_report.case_hash}")
 
             # check if file was uploaded
@@ -51,8 +53,9 @@ def report(request):
             file = file_form.cleaned_data.get('file_field')
             if file:
                 File.objects.create(report=new_report, file=file)
-            messages.success(request, 'You have successfully submitted your report.')
-            return render(request, 'submit/submission_complete.html', {'new_report': new_report})
+                print(f"Generated Case ID hash at file addition: {new_report.case_hash}")
+            # messages.success(request, 'You have successfully submitted your report.')
+            return redirect(reverse('submit:submission_complete', kwargs={'case_id': new_report.id}))
         
         # else:
         #     if not report_form.is_valid():
@@ -66,8 +69,18 @@ def report(request):
     return render(request, 'submit/report.html', {'report_form': report_form, 'file_form': file_form})
 
 
-# def submission_complete(request):
-#     return render(request, 'submit/submission_complete.html', {})
+def submission_complete(request):
+    case_hash = request.session.get('case_hash')
+
+    if not case_hash:
+        messages.error(request, "No recent submission found.")
+        return redirect(reverse('shared:home'))
+    context = {
+        'case_hash': case_hash
+    }
+
+    request.session.pop('case_hash', None)
+    return render(request, 'submit/submission_complete.html', context)
 
 
 # def report_submission(request):
