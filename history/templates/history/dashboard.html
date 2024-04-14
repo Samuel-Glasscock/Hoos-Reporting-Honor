@@ -1,11 +1,17 @@
 {% extends "submit/base.html" %} 
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'history/dashboard.css' %}">
+{% endblock %}
+
 {% block main %}
 <h1>Completed Reports</h1>
 
 <table class="table table-hover table-responsive-md">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Report ID</th>
+      <th scope="col">Report Hash</th>
       <th scope="col">Submitted By</th>
       <th scope="col">Status</th>
       <th scope="col">Date</th>
@@ -16,7 +22,9 @@
   <tbody>
     {% for report in reports %}
     <tr>
-      <td>{{ report.id }}</td>
+      <td>
+        <span class="hash-cell" title="{{ report.report_hash }}">{{ report.report_hash }}</span>
+      </td>      
       <td>
         {% if report.user %} 
             {{report.user.username}} 

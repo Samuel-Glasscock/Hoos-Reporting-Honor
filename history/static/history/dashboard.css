@@ -1,0 +1,27 @@
+/* Responsive table setup */
+.table-responsive-md {
+    width: 100%;
+  }
+  
+  /* Specific cell styling */
+  .hash-cell {
+    max-width: 10em; /* possibly adjust */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer; /* Indicates the text can be interacted with */
+  }
+  
+  /* Tooltip styling for user to see and copy full hash if hover over */
+  .hash-cell[title]:hover::after {
+    content: attr(title);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hash-cell {
+      max-width: 100%;
+      display: inline-block; /* handle overflow with ellipsis */
+    }
+  }
+  
