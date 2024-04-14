@@ -55,7 +55,7 @@ def report(request):
                 File.objects.create(report=new_report, file=file)
                 print(f"Generated Case ID hash at file addition: {new_report.case_hash}")
             # messages.success(request, 'You have successfully submitted your report.')
-            return redirect(reverse('submit:submission_complete', kwargs={'case_id': new_report.id}))
+            return redirect(reverse('submit:submission_complete'))
         
         # else:
         #     if not report_form.is_valid():
