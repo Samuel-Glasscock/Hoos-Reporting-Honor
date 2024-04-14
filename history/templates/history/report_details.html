@@ -4,11 +4,6 @@
 
 <h1>Report {{ report.report_hash }}</h1>
 <p>Status: {{ report.status }}</p>
-{% if report.user %} 
-            {{report.user.username}} 
-        {% else %}
-            Anonymous
-        {% endif %}
 <p>User:
     {% if report.user %} 
     {{report.user.username}} 
