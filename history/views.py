@@ -52,11 +52,27 @@ def report(request, id):
         if "change_status_to_pending" in request.POST:
             report_model.status = "PENDING"
             report_model.save()
-            return redirect("history:report_details", id=id)
 
+    request.session['viewing_report_id'] = str(report_model.id)
+    return redirect("history:report_details")
+
+def report_details(request):
+    report_id = request.session.get('viewing_report_id')
+    if not report_id:
+        # Handle case where no report ID is found in the session?
+        return redirect("history:dashboard")
+
+    report_model = get_object_or_404(Report, id=report_id)
+    del request.session['viewing_report_id']
     return render(request, "history/report_details.html", {"report": report_model})
 
-def delete(request, id):
-    report_model = Report.objects.get(id=id)
-    report_model.delete()
-    return redirect("history:dashboard")
+@login_required
+@require_POST
+def delete(request):
+    report_id = request.POST.get('report_id')
+    if report_id:
+        report = get_object_or_404(Report, id=report_id)
+        report.delete()
+        return redirect("history:dashboard")
+    else:
+        return redirect("history:dashboard") 

@@ -6,6 +6,7 @@ urlpatterns = [
 path("case/<int:id>/", views.case, name="case"),
 path("lookup/", views.lookup, name="lookup"),
 path("dashboard/", views.dashboard, name="dashboard"),
-path("dashboard/<int:id>", views.report, name="report"),
-path("delete/<int:id>", views.delete, name="delete"),
+path("dashboard/<int:id>", views.report, name="report"), # possibly delete for security?
+path("delete/", views.delete, name="delete"),
+path("report-details/", views.report_details, name="report_details"),
 ]
