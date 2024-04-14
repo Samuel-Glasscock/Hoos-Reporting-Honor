@@ -35,7 +35,11 @@
       <td>{{ report.status }}</td>
         <td>{{ report.submission_date }}</td>
       <td>
-        <a href="{% url 'history:report' report.id %}" class="btn btn-primary btn-sm">View Report</a>
+        <form action="{% url 'history:report' report.id %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="change_status_to_pending" value="true">
+          <button type="submit" class="btn btn-primary btn-sm">View Report</button>
+      </form>
       </td>
       <td>
         <form action="{% url 'history:delete' report.id %}" method="post">

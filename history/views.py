@@ -45,11 +45,11 @@ def report(request, id):
             report_model.status = "APPROVED"
             report_model.save()
             return redirect("history:dashboard")
+        if "change_status_to_pending" in request.POST:
+            report_model.status = "PENDING"
+            report_model.save()
+            return redirect("history:report", id=id)
 
-    report_model = Report.objects.get(id=id)
-    if report_model.status == "NEW":
-        report_model.status = "PENDING"
-        report_model.save()
     return render(request, "history/report_details.html", {"report": report_model})
 
 def delete(request, id):
