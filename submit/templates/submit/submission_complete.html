@@ -3,6 +3,7 @@
 
 {% block header %}
     <link href="../../static/submit/submission-features.css" rel="stylesheet">
+    <link href="../../static/submit/case-hash-copy-button.css" rel="stylesheet">
 {% endblock %}
 
 {% block banner %}
@@ -14,9 +15,12 @@
 {% block main %}
 <div class="case-id-container">
     <p>Case ID: <span id="caseID">{{ case_hash }}</span></p>
+</div>
+<div class = "save-case-container">
+    <p>Please save this Case ID if you want to check the status of your report later.</p>
     <button onclick="copyCaseID()" class="copy-btn">Copy</button>
 </div>
-<p>Please save this Case ID if you want to check the status of your report later.</p>
+
 <div class="container">
     <p>Return to <a href="{% url 'shared:home' %}">home</a>.</p>
 </div>
@@ -32,7 +36,22 @@
         textArea.select();
         document.execCommand("Copy");
         textArea.remove();
-        alert("Copied the Case ID: " + copyText.textContent);
+
+        // Create a tooltip-like feedback
+        var feedback = document.createElement("div");
+        feedback.textContent = "Copied!";
+        feedback.style.position = "fixed";
+        feedback.style.bottom = "20px";
+        feedback.style.right = "20px";
+        feedback.style.padding = "5px 10px";
+        feedback.style.backgroundColor = "rgba(0, 123, 255, 0.8)";
+        feedback.style.color = "white";
+        feedback.style.borderRadius = "5px";
+        document.body.appendChild(feedback);
+
+        setTimeout(function() {
+            document.body.removeChild(feedback);
+        }, 2000);  // feedback message disappear after 2 seconds
     }
 </script>
 {% endblock %}
