@@ -82,7 +82,7 @@ def submission_complete(request):
         messages.error(request, "Report not found.")
         return redirect('shared:home')
     
-    case_hash = report.case_hash
+    case_hash = report.report_hash
     request.session.pop('report_id', None)
     context = {'case_hash': case_hash}
 
