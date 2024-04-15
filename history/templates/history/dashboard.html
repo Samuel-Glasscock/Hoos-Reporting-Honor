@@ -1,16 +1,6 @@
 {% extends "submit/base.html" %} 
 {% load static %}
 
-{% block extra_js %}
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-});
-</script>
-{% endblock %}
 
 {% block main %}
 <h1>Completed Reports</h1>
@@ -29,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(){
     {% for report in reports %}
     <tr>
       <td>
-        <span class="hash-cell" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ report.report_hash }}">{{ report.report_hash }}</span>
+        <span class="hash-cell">{{ report.report_hash }}</span>
       </td>      
       <td>
         {% if report.user %} 
