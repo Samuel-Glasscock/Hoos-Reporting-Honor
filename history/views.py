@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from shared.models import Report
 from .forms import CaseSearchForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 
 def lookup(request):
@@ -34,9 +35,12 @@ def dashboard(request):
         reports = Report.objects.filter(user=user)
     return render(request, "history/dashboard.html", {'reports': reports})
 
+@login_required
+@require_POST
 def report(request, id):
+    report_model = get_object_or_404(Report, id=id)
+
     if request.method == "POST":
-        report_model = Report.objects.get(id=id)
         if "notes" in request.POST:
             report_model.report_text = request.POST.get("notes")
             report_model.save()
@@ -45,14 +49,30 @@ def report(request, id):
             report_model.status = "APPROVED"
             report_model.save()
             return redirect("history:dashboard")
+        if "change_status_to_pending" in request.POST:
+            report_model.status = "PENDING"
+            report_model.save()
 
-    report_model = Report.objects.get(id=id)
-    if report_model.status == "NEW":
-        report_model.status = "PENDING"
-        report_model.save()
+    request.session['viewing_report_id'] = str(report_model.id)
+    return redirect("history:report_details")
+
+def report_details(request):
+    report_id = request.session.get('viewing_report_id')
+    if not report_id:
+        # Handle case where no report ID is found in the session?
+        return redirect("history:dashboard")
+
+    report_model = get_object_or_404(Report, id=report_id)
+    del request.session['viewing_report_id']
     return render(request, "history/report_details.html", {"report": report_model})
 
-def delete(request, id):
-    report_model = Report.objects.get(id=id)
-    report_model.delete()
-    return redirect("history:dashboard")
+@login_required
+@require_POST
+def delete(request):
+    report_id = request.POST.get('report_id')
+    if report_id:
+        report = get_object_or_404(Report, id=report_id)
+        report.delete()
+        return redirect("history:dashboard")
+    else:
+        return redirect("history:dashboard") 

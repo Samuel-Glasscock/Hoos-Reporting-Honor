@@ -1,29 +1,25 @@
 {% extends "submit/base.html" %} 
 {% load static %}
 
-{% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'history/dashboard.css' %}">
-{% endblock %}
 
 {% block main %}
 <h1>Completed Reports</h1>
 
-<table class="table table-hover table-responsive-md">
-  <thead class="thead-dark">
+<table class="table table-hover table-responsive">
+  <thead class="table-dark">
     <tr>
       <th scope="col">Report Hash</th>
       <th scope="col">Submitted By</th>
       <th scope="col">Status</th>
       <th scope="col">Date</th>
       <th scope="col">Files</th>
-      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
     {% for report in reports %}
     <tr>
       <td>
-        <span class="hash-cell" title="{{ report.report_hash }}">{{ report.report_hash }}</span>
+        <span class="hash-cell">{{ report.report_hash }}</span>
       </td>      
       <td>
         {% if report.user %} 
@@ -35,12 +31,10 @@
       <td>{{ report.status }}</td>
         <td>{{ report.submission_date }}</td>
       <td>
-        <a href="{% url 'history:report' report.id %}" class="btn btn-primary btn-sm">View Report</a>
-      </td>
-      <td>
-        <form action="{% url 'history:delete' report.id %}" method="post">
+        <form method="POST" action="{% url 'history:report' report.id %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          <input type="hidden" name="change_status_to_pending" value="true">
+          <button type="submit" class="btn btn-primary btn-sm">View Report</button>
         </form>
       </td>
     </tr>
