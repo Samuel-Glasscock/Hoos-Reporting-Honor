@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from shared.models import Report
 from .forms import CaseSearchForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, profile_is_admin
 from django.views.decorators.http import require_POST
 
 
@@ -35,10 +35,15 @@ def dashboard(request):
         reports = Report.objects.filter(user=user)
     return render(request, "history/dashboard.html", {'reports': reports})
 
-@login_required
+@login_required and profile_is_admin
 @require_POST
-def report(request, id):
-    report_model = get_object_or_404(Report, id=id)
+def report(request):
+    report_id = request.POST.get('report_id')
+    # handle case where no report ID is found in the session
+    if not report_id:
+        return redirect("history:dashboard")
+    
+    report_model = get_object_or_404(Report, id=report_id)
 
     if request.method == "POST":
         if "notes" in request.POST:
@@ -52,6 +57,11 @@ def report(request, id):
         if "change_status_to_pending" in request.POST:
             report_model.status = "PENDING"
             report_model.save()
+            
+        # if change_status_to_rejected in request.POST:    
+        # have some post request to change the status of the report to rejected in 
+        # then change status to "REJECTED"
+        # then save 
 
     request.session['viewing_report_id'] = str(report_model.id)
     return redirect("history:report_details")
