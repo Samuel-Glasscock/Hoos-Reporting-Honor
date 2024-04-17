@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from shared.models import Report
 from .forms import CaseSearchForm
-from django.contrib.auth.decorators import login_required, profile_is_admin
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
 
