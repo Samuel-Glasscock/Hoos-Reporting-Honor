@@ -35,7 +35,7 @@ def dashboard(request):
         reports = Report.objects.filter(user=user)
     return render(request, "history/dashboard.html", {'reports': reports})
 
-@login_required and profile_is_admin
+@login_required
 @require_POST
 def report(request):
     report_id = request.POST.get('report_id')
@@ -45,26 +45,35 @@ def report(request):
     
     report_model = get_object_or_404(Report, id=report_id)
 
-    if request.method == "POST":
+    if request.user.profile.is_admin:
         if "notes" in request.POST:
             report_model.report_text = request.POST.get("notes")
             report_model.save()
-            return redirect("history:report", id=id)
-        if "status" in request.POST:
-            report_model.status = "APPROVED"
-            report_model.save()
-            return redirect("history:dashboard")
+            return redirect("history:report", id=report_model.id)
+        
         if "change_status_to_pending" in request.POST:
             report_model.status = "PENDING"
             report_model.save()
-            
-        # if change_status_to_rejected in request.POST:    
-        # have some post request to change the status of the report to rejected in 
-        # then change status to "REJECTED"
-        # then save 
 
     request.session['viewing_report_id'] = str(report_model.id)
     return redirect("history:report_details")
+
+@login_required
+@require_POST
+def update_report_status(request):
+    report_id = request.session.get('viewing_report_id')
+    if not report_id:
+        return redirect('history:dashboard')
+    
+    # handles whatever status is passed in the POST request e.g. 'REJECTED' or 'APPROVED'
+    report = get_object_or_404(Report, id=report_id)
+    if request.user.profile.is_admin:
+        if 'status' in request.POST:
+            report.status = request.POST.get('status')
+            report.save()
+            return redirect('history:report_details')
+    
+    return redirect('history:report_details')
 
 def report_details(request):
     report_id = request.session.get('viewing_report_id')
