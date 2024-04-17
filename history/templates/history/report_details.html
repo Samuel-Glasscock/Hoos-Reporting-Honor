@@ -31,7 +31,7 @@
 
 {% if user.profile.is_admin %}
 <div>
-    <form action="{% url history: update_report_status %}", method="post">
+    <form action="{% url history:update_report_status %}", method="post">
         {% csrf_token %}
         <input type="hidden" name="report_id" value="{{ report.id }}">
         <input type="text" id="notes" name="notes"class="form-control" placeholder="Notes"/>
