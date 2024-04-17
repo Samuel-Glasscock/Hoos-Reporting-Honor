@@ -61,7 +61,7 @@ def report(request):
 @login_required
 @require_POST
 def update_report_status(request):
-    report_id = request.session.get('viewing_report_id')
+    report_id = request.POST.get('report_id'), request.session.get('viewing_report_id')
     if not report_id:
         return redirect('history:dashboard')
     
@@ -71,8 +71,12 @@ def update_report_status(request):
         if 'status' in request.POST:
             report.status = request.POST.get('status')
             report.save()
+            # messages.add_message(request, messages.SUCCESS, "Notes added successfully.")
             return redirect('history:report_details')
-    
+        elif "notes" in request.POST:
+            report.report_text = request.POST.get("notes")
+            report.save()
+            return redirect("history:report_details")
     return redirect('history:report_details')
 
 def report_details(request):
