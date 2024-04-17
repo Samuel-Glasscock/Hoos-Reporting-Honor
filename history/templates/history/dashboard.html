@@ -31,8 +31,9 @@
       <td>{{ report.status }}</td>
         <td>{{ report.submission_date }}</td>
       <td>
-        <form method="POST" action="{% url 'history:report' report.id %}">
+        <form method="POST" action="{% url 'history:report' %}">
           {% csrf_token %}
+          <input type="hidden" name="report_id" value="{{ report.id }}">
           <input type="hidden" name="change_status_to_pending" value="true">
           <button type="submit" class="btn btn-primary btn-sm">View Report</button>
         </form>
