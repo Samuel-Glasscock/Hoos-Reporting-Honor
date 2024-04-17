@@ -3,6 +3,7 @@ from shared.models import Report
 from .forms import CaseSearchForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.contrib import messages
 
 
 def lookup(request):
@@ -71,11 +72,14 @@ def update_report_status(request):
         if 'status' in request.POST:
             report.status = request.POST.get('status')
             report.save()
-            # messages.add_message(request, messages.SUCCESS, "Notes added successfully.")
+            messages.success(request, "Status updated successfully.")
+            request.session['viewing_report_id'] = str(report.id)
             return redirect('history:report_details')
         elif "notes" in request.POST:
             report.report_text = request.POST.get("notes")
             report.save()
+            messages.success(request, "Notes added successfully.")
+            request.session['viewing_report_id'] = str(report.id)
             return redirect("history:report_details")
     return redirect('history:report_details')
 
