@@ -61,7 +61,7 @@ def report(request):
 @login_required
 @require_POST
 def update_report_status(request):
-    report_id = request.POST.get('report_id'), request.session.get('viewing_report_id')
+    report_id = request.POST.get('report_id')
     if not report_id:
         return redirect('history:dashboard')
     
