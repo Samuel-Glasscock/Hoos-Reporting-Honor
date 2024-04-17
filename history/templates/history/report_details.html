@@ -47,7 +47,7 @@
 </div>
 
 <div style="margin-top: 10px;">
-    <form action="{% 'history:update_report_status' %}", method="post">
+    <form action="{% url 'history:update_report_status' %}", method="post">
         {% csrf_token %}
         <input type="hidden" name="status" value="APPROVED">
         <button type="submit" class="btn btn-success">Approve</button>
@@ -55,7 +55,7 @@
 </div>
 
 <div style="margin-top: 10px;">
-    <form action="{% 'history:update_report_status' %}", method="post">
+    <form action="{% url 'history:update_report_status' %}", method="post">
         {% csrf_token %}
         <input type="hidden" name="status" value="REJECTED">
         <button type="submit" class="btn btn-warning">Reject</button>
