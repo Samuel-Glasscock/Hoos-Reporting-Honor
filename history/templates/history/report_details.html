@@ -1,33 +1,47 @@
 {% extends 'submit/base.html' %}
 {% block title %}Report{% endblock%}
+
+{% block extra_css %}
+  <link href="../../static/history/report-detail-labels.css" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
 
 <h1>Report {{ report.report_hash }}</h1>
-<p>Status: {{ report.status }}</p>
-<p>User:
+
+<h3><span class="label-bold">Report Logistics</span></h3>
+<p><span class="label-bold">User:</span>
     {% if report.user %} 
     {{report.user.username}} 
 {% else %}
     Anonymous
 {% endif %}
 </p>
-<p>Submission Date: {{ report.submission_date }}</p>
-<p>Edit Date: {{ report.edit_date }}</p>
-<p>Incident Date: {{ report.incident_date }}</p>
-<p>Incident Location: {{ report.incident_location }}</p>
-<p>Students Involved: {{ report.students_involved }}</p>
-<p>Report Summary: {{ report.report_summary }}</p>
-<p>Associated Files</p>
+<p><span class="label-bold">Submission Date:</span> {{ report.submission_date }}</p>
+<p><span class="label-bold">Edit Date:</span> {{ report.edit_date }}</p>
+<p><span class="label-bold">Status:</span> {{ report.status }}</p>
+
+<h3><span class="label-bold">Incident Details</span></h3>
+<p><span class="label-bold">Incident Date:</span> {{ report.incident_date }}</p>
+<p><span class="label-bold">Incident Location:</span> {{ report.incident_location }}</p>
+<p><span class="label-bold">Students Involved:</span>{{ report.students_involved }}</p>
+<p><span class="label-bold">Report Summary:</span> {{ report.report_summary }}</p>
+
+<h3><span class="label-bold">Associated Files</span></h3>
 <ul>
-    {% for file in report.file_set.all %}
-    <li>
-        <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}" target="_blank">{{ file.file.name }}</a>
-    </li>
-{% endfor %}
+    {% if report.file_set.all %}
+        {% for file in report.file_set.all %}
+        <li>
+            <a href="{% url 'shared:render_object_from_s3' s3_object_url=file.get_file_url %}" target="_blank">{{ file.file.name }}</a>
+        </li>
+        {% endfor %}
+    {% else %}
+        <li>No associated files.</li>
+    {% endif %}
 </ul>
 
-<p>Admin Notes: {{ report.report_text }}</p>
-
+<h3><span class="label-bold">Admin Feedback</span></h3>
+<p><span class="label-bold">Admin Notes:</span> {% if report.report_text %}{{ report.report_text }}{% else %}No feedback{% endif %}</p>
 
 {% if user.profile.is_admin %}
 <div>
