@@ -1,52 +1,95 @@
 {% extends 'submit/base.html' %}
-{% block title %}Home{% endblock%}
+{% block title %}Home{% endblock %}
+{% block header %}
+    <link href="../../static/shared/home-features.css" rel="stylesheet">
+{% endblock %}
+{% block banner %}
+    <div class="banner">
+        <div class="overlay d-flex justify-content-center align-items-center">
+            <h1 class="text-white text-center">Welcome to Hoos Reporting Honor!</h1>
+            <h6 class="text-white text-center pr-1">Worried about an honor code violation? Want to report it? Make an anonymous submission or sign in to keep
+                track of all of your reports. You can also find the status of specific reports even without being signed
+                in using our Case ID system.</h6>
+        </div>
+    </div>
+{% endblock %}
 {% block main %}
-<div class="container my-5">
-  <header class="text-center mb-4">
-    <h1>Welcome To Hoos Honor Reporting</h1>
-  </header>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <a href="https://honor.virginia.edu/" class="btn-custom">
+                    <i class="fas fa-book fa-3x button-icon"></i>
+                    <span>Understand The Code</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="/history/lookup" class="btn-custom">
+                    <i class="fas fa-search fa-3x button-icon"></i>
+                    <span>Find Your Reports</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="/submit" class="btn-custom">
+                    <i class="fas fa-file-alt fa-3x button-icon"></i>
+                    <span>Submit a Report</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="/login" class="btn-custom">
+                    <i class="fas fa-sign-in-alt fa-3x"></i>
+                    <span>Sign In</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-  <div class="row">
-    <div class="col-sm-6 col-lg-3 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title text-center">
-            <a href="https://honor.virginia.edu/">Understand The Code</a>
-          </h5>
-        </div>
-      </div>
+{#    <div class="container my-5">#}
+{#        <div class="row">#}
+{#            <div class="col-sm-6 col-lg-3 mb-4">#}
+{#                <div class="card h-100">#}
+{#                    <div class="card-body text-center">#}
+{#                        <i class="fas fa-book fa-3x"></i> <!-- Icon for 'Understand The Code' -->#}
+{#                        <h5 class="card-title">#}
+{#                            <a href="https://honor.virginia.edu/">Understand The Code</a>#}
+{#                        </h5>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-sm-6 col-lg-3 mb-4">#}
+{#                <div class="card h-100">#}
+{#                    <div class="card-body text-center">#}
+{#                        <i class="fas fa-search fa-3x"></i> <!-- Icon for 'Find Your Reports' -->#}
+{#                        <h5 class="card-title">#}
+{#                            <a href="/history/lookup">Find Your Reports</a>#}
+{#                        </h5>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-sm-6 col-lg-3 mb-4">#}
+{#                <div class="card h-100">#}
+{#                    <div class="card-body text-center">#}
+{#                        <i class="fas fa-file-alt fa-3x"></i> <!-- Icon for 'Submit a Report' -->#}
+{#                        <h5 class="card-title">#}
+{#                            <a href="/submit">Submit a Report</a>#}
+{#                        </h5>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-sm-6 col-lg-3 mb-4">#}
+{#                <div class="card h-100">#}
+{#                    <div class="card-body text-center">#}
+{#                        <i class="fas fa-sign-in-alt fa-3x"></i> <!-- Icon for 'Sign In' -->#}
+{#                        <h5 class="card-title">#}
+{#                            <a href="/login">Sign In</a>#}
+{#                        </h5>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="jumbotron text-center mt-4">
+        <h4>Questions?</h4>
+        <p>Contact us at <a href="mailto:honor@virginia.edu">honor@virginia.edu</a></p>
     </div>
-    <div class="col-sm-6 col-lg-3 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title text-center" >
-            <a href="/history/lookup"> Find Your Reports</a>
-          </h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-3 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title text-center" >
-              <a href="/submit"> Submit a Report</a>
-          </h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-lg-3 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title text-center" >
-              <a href="/login"> Sign In </a>
-          </h5>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="text-center mt-4">
-    <p>Questions? <a href="mailto:honor@virginia.edu">honor@virginia.edu</a></p>
-  </div>
-</div>
 {% endblock %}
 

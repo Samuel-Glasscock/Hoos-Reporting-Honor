@@ -1,21 +1,26 @@
 {% extends "submit/base.html" %} 
+{% load static %}
+
+
 {% block main %}
 <h1>Completed Reports</h1>
 
-<table>
-  <thead>
+<table class="table table-hover table-responsive">
+  <thead class="table-dark">
     <tr>
-      <th>Report ID</th>
-      <th>Submitted By</th>
-      <th>Status</th>
-      <th>Date</th>
-      <th>Files</th>
+      <th scope="col">Report Hash</th>
+      <th scope="col">Submitted By</th>
+      <th scope="col">Status</th>
+      <th scope="col">Date</th>
+      <th scope="col">Files</th>
     </tr>
   </thead>
   <tbody>
     {% for report in reports %}
     <tr>
-      <td>{{ report.id }}</td>
+      <td>
+        <span class="hash-cell">{{ report.report_hash }}</span>
+      </td>      
       <td>
         {% if report.user %} 
             {{report.user.username}} 
@@ -26,7 +31,12 @@
       <td>{{ report.status }}</td>
         <td>{{ report.submission_date }}</td>
       <td>
-        <a href="{% url 'history:report' report.id %}">View Report</a>
+        <form method="POST" action="{% url 'history:report' %}">
+          {% csrf_token %}
+          <input type="hidden" name="report_id" value="{{ report.id }}">
+          <input type="hidden" name="change_status_to_pending" value="true">
+          <button type="submit" class="btn btn-primary btn-sm">View Report</button>
+        </form>
       </td>
     </tr>
     {% endfor %}

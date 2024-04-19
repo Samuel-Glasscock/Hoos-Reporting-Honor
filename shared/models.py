@@ -4,7 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from storages.backends.s3boto3 import S3Boto3Storage
 from django.utils import timezone
-
+from django.core.files.storage import default_storage
+import uuid
 # to import into any module: from shared.models import Report, File
 
 class Report(models.Model):
@@ -13,6 +14,7 @@ class Report(models.Model):
         PENDING = 'PENDING'
         APPROVED = 'APPROVED'
         REJECTED = 'REJECTED'
+        
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
     submission_date = models.DateTimeField(auto_now_add=True)
@@ -24,6 +26,7 @@ class Report(models.Model):
     report_text = models.TextField(default = "") # THIS IS THE FIELD FOR EDITING NOTES
     report_summary = models.TextField(default = 'summary to be provided')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
+    report_hash = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     class Meta:
         ordering = ['-submission_date']
@@ -37,6 +40,18 @@ class Report(models.Model):
     def get_students_involved_list(self):
         """Return a list of student IDs."""
         return self.students_involved.split(', ')
+    
+    def delete(self, *args, **kwargs):
+        # handle s3 file deletion
+        files = self.file_set.all()
+        for file in files:
+            try:
+                default_storage.delete(file.file.name)
+            except Exception as e:
+                print(f"Error deleting file {file.file.name}: {e}")
+            file.delete()
+        # delete the report object from db
+        super(Report, self).delete(*args, **kwargs)
     
 class File(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
