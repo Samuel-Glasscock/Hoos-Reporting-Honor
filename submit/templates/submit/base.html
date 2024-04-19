@@ -92,19 +92,11 @@
 
             <ul class="navbar-nav ms-auto">
                 {% if user.profile.is_authenticated %}
-                    {% if user.profile.is_admin %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/shared/admin_home">
-                                <i class="fas fa-sign-in-alt"></i> {{user.name}}
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'history:dashboard' %}">
-                                <i class="fas fa-sign-in-alt"></i> {{user.name}}
-                            </a>
-                        </li>
-                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'history:dashboard' %}">
+                            <i class="fas fa-sign-in-alt"></i> {{user.username}}
+                        </a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login:login_view' %}">Sign In</a>
