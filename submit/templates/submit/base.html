@@ -80,31 +80,21 @@
                             <a class="dropdown-item" href="{% url 'history:lookup' %}">Find Report</a
                             >
                         </li>
-                        {% comment %} <!-- case id lookup -->
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="{% url 'history:dashboard' %}">Dashboard (must login)</a>
-                </li> {% endcomment %}
-                        <!--  if not logged in, will lead them directly to login page. if not, directs to appropriate dashboard? -->
                     </ul>
                 </li>
             </ul>
-
+            <!-- Sign in/Dashboard button -->
             <ul class="navbar-nav ms-auto">
-                {% if user.profile.is_authenticated %}
+                {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'history:dashboard' %}">
-                            <i class="fas fa-sign-in-alt"></i> {{user.username}}
-                        </a>
+                        <a class="nav-link" href="{% url 'history:dashboard' %}"> {{user.username}} </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login:login_view' %}">Sign In</a>
                     </li>
                 {% endif %}
-            </ul>
             <!-- Sign out button -->
-            <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     <form class="form-inline my-2 my-lg-0" action="{% url 'account_logout' %}" method="post">
                         {% csrf_token %}
