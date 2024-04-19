@@ -75,15 +75,20 @@
             </li>
           </ul>
 
+            <!-- Right side of navbar -->
+
              <ul class="navbar-nav ml-auto">
                 <!-- Conditional rendering based on user's sign-in status -->
                 {% if user.profile.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history/dashboard">{{ user.name }}</a>
+                    </li>
                     {% if user.profile.is_admin %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/shared/admin_home">
-                                <i class="fas fa-sign-in-alt"></i> Account
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shared/admin_home">
+                            <i class="fas fa-sign-in-alt"></i> Account
+                        </a>
+                    </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="/shared/common">
