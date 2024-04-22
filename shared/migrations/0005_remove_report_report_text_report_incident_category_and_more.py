@@ -10,10 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='report',
-            name='report_text',
-        ),
         migrations.AddField(
             model_name='report',
             name='incident_category',

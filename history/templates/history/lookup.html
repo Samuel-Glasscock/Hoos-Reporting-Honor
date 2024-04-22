@@ -3,17 +3,24 @@
 {% block main %}
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="text-center">
-            <h4 class="pb-1">To find and access to any report you have submitted while either logged in or while anonymous, please input the Case ID hash that was displayed on screen after submitting the report.</h4>
+            <h4 class="pb-1">To access details to any report that you have submitted while logged in to your account or anonymously, please input the Case ID hash that was displayed after you submitted the report.</h4>
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
-                    {{ form.id }}
+                    {{ form.report_hash}}
+                    {% if form.report_hash.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.report_hash.errors }}
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="mb-3">
-                    {{ form.user_password }}
-                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

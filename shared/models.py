@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from storages.backends.s3boto3 import S3Boto3Storage
 from django.utils import timezone
 from django.core.files.storage import default_storage
+import uuid
 # to import into any module: from shared.models import Report, File
 
 class Report(models.Model):
@@ -25,6 +26,7 @@ class Report(models.Model):
     report_text = models.TextField(default = "") # THIS IS THE FIELD FOR EDITING NOTES
     report_summary = models.TextField(default = 'summary to be provided')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
+    report_hash = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     class Meta:
         ordering = ['-submission_date']

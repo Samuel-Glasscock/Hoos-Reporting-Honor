@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wq#sfzs8fws)*d@29s66t-9-b%#m4ghekw*vo+%2+r-%im%a3f'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
-SITE_ID = 3 # might need to be changed
+SITE_ID = 4 # might need to be changed
 # LOGIN_REDIRECT_URL :- destination of login page in your urls.py
 LOGIN_REDIRECT_URL = 'shared:home'
 # ACCOUNT_LOGOUT_REDIRECT :- where to redirect when user logout
