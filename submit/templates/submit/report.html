@@ -44,7 +44,7 @@
                     />
                 </div>
                 <div class="form-group">
-                    <label for="incident_category">Incident Category:</label>
+                    <label for="incident_category" data-toggle="tooltip" title="Please select the category that best describes the incident. For more information, please refer to the 'Incident Categories' tab.">Incident Category:</label>
                     <select id="incident_category" name="incident_category" class="form-control" required>
                         <option value="">Select</option>
                         <option value="lying">Lying</option>
@@ -104,6 +104,9 @@
     </div>
 <script>
     document.getElementById('date').max = new Date().toISOString().split('T')[0];
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 </script>
 {% endblock %}
 
