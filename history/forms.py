@@ -3,7 +3,7 @@ from shared.models import Report, User
 
 class CaseSearchForm(forms.Form):
     report_hash = forms.UUIDField(label="Case ID", 
-                                widget=forms.TextInput(attrs={'placeholder': 'Enter Your Case ID Hash Here', 
+                                widget=forms.TextInput(attrs={'placeholder': 'Enter Your Case ID Here',
                                                                   'class': 'form-control', 
                                                                   'required': True}))
     class Meta:
