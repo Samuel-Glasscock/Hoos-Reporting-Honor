@@ -63,7 +63,7 @@ def report(request):
             report_model.save()
             return redirect("history:report", id=report_model.id)
         
-        if "change_status_to_pending" in request.POST: # is always passed in post
+        if "change_status_to_pending" in request.POST and report_model.status == "NEW":
             report_model.status = "PENDING"
             # logger.debug(f"Report save called at status change to pending! Trace: {''.join(traceback.format_stack())}")
             report_model.save()
