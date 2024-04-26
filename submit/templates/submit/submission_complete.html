@@ -19,9 +19,9 @@
 </div>
 
 {% if user.is_authenticated %}
-    <p>Please save this Case ID if you want to check the status of your report later without logging in using our case lookup feature on the home page. Also, since you are currently logged in, then you may also access all of your reports while logged in on your personal dashboard by clicking {{ user.get_username }}'s dashboard in the top right of the site.</p>
+    <p>Please save this Case ID if you want to check the status of your report later without logging in using our case lookup feature "Find Your Reports" on the home page. Also, since you are currently logged in, then you may also access all of your reports while logged in on your personal dashboard by clicking {{ user.get_username }}'s dashboard in the top right of the site.</p>
 {% else %}
-    <p>Please save this Case ID if you want to check the status of your report later using our case lookup feature on the home page as this will be your only way to review the report status and details as an anonymous user.</p>
+    <p>Please save this Case ID if you want to check the status of your report later using our case lookup feature "Find Your Reports" on the home page as this will be your only way to review the report status and details as an anonymous user.</p>
 {% endif %}
 
 <div class="container">

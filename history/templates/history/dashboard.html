@@ -1,6 +1,7 @@
 {% extends "submit/base.html" %} 
 {% load static %}
 
+{% block title %}Reports Dashboard | Hoos Reporting Honor{% endblock %}
 
 {% block main %}
 <h1>Completed Reports</h1>
@@ -11,7 +12,7 @@
       <th scope="col">Case ID</th>
       <th scope="col">Submitted By</th>
       <th scope="col">Status</th>
-      <th scope="col">Date</th>
+      <th scope="col">Date ({{current_timezone}})</th>
       <th scope="col">Files</th>
     </tr>
   </thead>
@@ -29,7 +30,7 @@
         {% endif %}
       </td>
       <td>{{ report.status }}</td>
-        <td>{{ report.submission_date }}</td>
+      <td>{{ report.submission_date }}</td>
       <td>
         <form method="POST" action="{% url 'history:report' %}">
           {% csrf_token %}

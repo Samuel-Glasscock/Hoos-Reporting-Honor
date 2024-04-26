@@ -1,5 +1,5 @@
 {% extends 'submit/base.html' %}
-{% block title %}Report{% endblock%}
+{% block title %}Report Details | Hoos Reporting Honor{% endblock%}
 
 {% block extra_css %}
   <link href="../../static/history/report-detail-labels.css" rel="stylesheet">
@@ -17,8 +17,8 @@
     Anonymous
 {% endif %}
 </p>
-<p><span class="label-bold">Submission Date:</span> {{ report.submission_date }}</p>
-<p><span class="label-bold">Edit Date:</span> {{ report.edit_date }}</p>
+<p><span class="label-bold">Submission Date ({{current_timezone}}):</span> {{ report.submission_date }}</p>
+<p><span class="label-bold">Edit Date ({{current_timezone}}):</span> {{ report.edit_date }}</p>
 <p><span class="label-bold">Status:</span> {{ report.status }}</p>
 
 <h3><span class="label-bold">Incident Details</span></h3>
@@ -50,7 +50,7 @@
         <input type="hidden" name="report_id" value="{{ report.id }}">
         <input type="text" id="notes" name="notes"class="form-control" placeholder="Notes"/>
         <div style="margin-top: 10px;">
-            <button type="submit" class="btn btn-primary" m>Add Notes</button>
+            <button type="submit" class="btn btn-primary" m>Save Admin Notes</button>
         </div>
     </form>
 </div>

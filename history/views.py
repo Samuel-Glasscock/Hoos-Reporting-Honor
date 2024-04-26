@@ -4,7 +4,13 @@ from .forms import CaseSearchForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.utils import timezone
+from zoneinfo import ZoneInfo
+from django.http import JsonResponse
+import traceback
+import logging
 
+logger = logging.getLogger(__name__)
 
 def lookup(request):
     if request.method == "POST":
@@ -26,6 +32,7 @@ def case(request, case_hash):
 
 @login_required
 def dashboard(request):
+    # logger.debug("Dashboard called")
     profile = request.user.profile
     user = request.user
     if user.is_superuser:
@@ -34,7 +41,10 @@ def dashboard(request):
         reports = Report.objects.all()
     else:
         reports = Report.objects.filter(user=user)
-    return render(request, "history/dashboard.html", {'reports': reports})
+
+    current_timezone = timezone.get_current_timezone_name()
+
+    return render(request, "history/dashboard.html", {'reports': reports, 'current_timezone' : current_timezone},)
 
 @login_required
 @require_POST
@@ -49,11 +59,13 @@ def report(request):
     if request.user.profile.is_admin:
         if "notes" in request.POST:
             report_model.report_text = request.POST.get("notes")
+            # logger.debug(f"Report save called at admin notes! Trace: {''.join(traceback.format_stack())}")
             report_model.save()
             return redirect("history:report", id=report_model.id)
         
         if "change_status_to_pending" in request.POST and report_model.status == "NEW":
             report_model.status = "PENDING"
+            # logger.debug(f"Report save called at status change to pending! Trace: {''.join(traceback.format_stack())}")
             report_model.save()
 
     request.session['viewing_report_id'] = str(report_model.id)
@@ -71,12 +83,14 @@ def update_report_status(request):
     if request.user.profile.is_admin:
         if 'status' in request.POST:
             report.status = request.POST.get('status')
+            # logger.debug(f"Report save called at status update! Trace: {''.join(traceback.format_stack())}")
             report.save()
             messages.success(request, "Status updated successfully.")
             request.session['viewing_report_id'] = str(report.id)
             return redirect('history:report_details')
         elif "notes" in request.POST:
             report.report_text = request.POST.get("notes")
+            # logger.debug(f"Report save called at admin notes update_report_status! Trace: {''.join(traceback.format_stack())}")
             report.save()
             messages.success(request, "Notes added successfully.")
             request.session['viewing_report_id'] = str(report.id)
@@ -90,8 +104,9 @@ def report_details(request):
         return redirect("history:dashboard")
 
     report_model = get_object_or_404(Report, id=report_id)
+    current_timezone = timezone.get_current_timezone_name()
     del request.session['viewing_report_id']
-    return render(request, "history/report_details.html", {"report": report_model})
+    return render(request, "history/report_details.html", {"report": report_model, 'current_timezone' : current_timezone})
 
 @login_required
 @require_POST
@@ -103,3 +118,19 @@ def delete(request):
         return redirect("history:dashboard")
     else:
         return redirect("history:dashboard") 
+
+
+#  REFERENCES
+#  AI Agent: ChatGPT4
+#  Date: 2024-4-25
+# Prompt: "how can I access a user's local timezone without manually prompting them for it in a Django project and send it to the server for processing and displaying a datetime?"
+def set_timezone(request):
+    if request.method == 'POST':
+        timezone = request.POST.get('timezone')
+        if timezone:
+            request.session['django_timezone'] = timezone
+            # print("Timezone received and set:", timezone)
+            return JsonResponse({'status': 'success', 'message': 'Timezone updated.'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'No timezone provided.'}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

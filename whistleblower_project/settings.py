@@ -85,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'history.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'whistleblower_project.urls'
@@ -142,6 +143,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# import sys
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'stream': sys.stdout,  
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+        
+#         '': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
