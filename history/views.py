@@ -4,6 +4,7 @@ from .forms import CaseSearchForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.utils import timezone
 
 
 def lookup(request):
@@ -34,7 +35,10 @@ def dashboard(request):
         reports = Report.objects.all()
     else:
         reports = Report.objects.filter(user=user)
-    return render(request, "history/dashboard.html", {'reports': reports})
+
+    current_timezone = timezone.get_current_timezone_name()
+
+    return render(request, "history/dashboard.html", {'reports': reports, 'current_timezone' : current_timezone},)
 
 @login_required
 @require_POST
@@ -90,8 +94,9 @@ def report_details(request):
         return redirect("history:dashboard")
 
     report_model = get_object_or_404(Report, id=report_id)
+    current_timezone = timezone.get_current_timezone_name()
     del request.session['viewing_report_id']
-    return render(request, "history/report_details.html", {"report": report_model})
+    return render(request, "history/report_details.html", {"report": report_model, 'current_timezone' : current_timezone})
 
 @login_required
 @require_POST

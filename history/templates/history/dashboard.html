@@ -11,7 +11,7 @@
       <th scope="col">Report Hash</th>
       <th scope="col">Submitted By</th>
       <th scope="col">Status</th>
-      <th scope="col">Date</th>
+      <th scope="col">Date ({{current_timezone}})</th>
       <th scope="col">Files</th>
     </tr>
   </thead>
@@ -29,7 +29,7 @@
         {% endif %}
       </td>
       <td>{{ report.status }}</td>
-        <td>{{ report.submission_date }}</td>
+      <td>{{ report.submission_date }}</td>
       <td>
         <form method="POST" action="{% url 'history:report' %}">
           {% csrf_token %}
