@@ -121,6 +121,7 @@ def set_timezone(request):
         timezone = request.POST.get('timezone')
         if timezone:
             request.session['django_timezone'] = timezone
+            print("Timezone received and set:", timezone)
             return JsonResponse({'status': 'success', 'message': 'Timezone updated.'})
         else:
             return JsonResponse({'status': 'error', 'message': 'No timezone provided.'}, status=400)

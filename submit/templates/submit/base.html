@@ -179,5 +179,36 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
+/***************
+    * REFERENCES
+    * AI Agent: ChatGPT4
+    * Date: 2024-4-25
+    * Prompt: "how can I access a user's local timezone without manually prompting them for it in a Django project and send it to the server for processing and displaying a datetime?"
+***************/
+<script> 
+    document.addEventListener('DOMContentLoaded', function() {
+        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        console.log("Detected Timezone:", timezone); // For debugging
+        sendTimezoneToServer(timezone);
+    });
+
+    function getCSRFToken() {
+        const csrfToken = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
+        return csrfToken ? csrfToken.split('=')[1] : null;
+    }
+    function sendTimezoneToServer(timezone) {
+        fetch('/set_timezone/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;',
+                'X-CSRFToken': getCSRFToken()  // Add CSRF token to request headers
+            },
+            body: 'timezone=' + encodeURIComponent(timezone)
+        })
+        .then(response => response.text())
+        .then(data => console.log('Timezone set successfully:', data))
+        .catch(error => console.error('Error setting timezone:', error));
+    }
+</script>
 </body>
 </html>
