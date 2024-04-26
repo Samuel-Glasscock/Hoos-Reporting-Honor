@@ -32,7 +32,7 @@ def case(request, case_hash):
 
 @login_required
 def dashboard(request):
-    logger.debug("Dashboard called")
+    # logger.debug("Dashboard called")
     profile = request.user.profile
     user = request.user
     if user.is_superuser:
@@ -59,13 +59,13 @@ def report(request):
     if request.user.profile.is_admin:
         if "notes" in request.POST:
             report_model.report_text = request.POST.get("notes")
-            logger.debug(f"Report save called at admin notes! Trace: {''.join(traceback.format_stack())}")
+            # logger.debug(f"Report save called at admin notes! Trace: {''.join(traceback.format_stack())}")
             report_model.save()
             return redirect("history:report", id=report_model.id)
         
-        if "change_status_to_pending" in request.POST:
+        if "change_status_to_pending" in request.POST: # is always passed in post
             report_model.status = "PENDING"
-            logger.debug(f"Report save called at status change to pending! Trace: {''.join(traceback.format_stack())}")
+            # logger.debug(f"Report save called at status change to pending! Trace: {''.join(traceback.format_stack())}")
             report_model.save()
 
     request.session['viewing_report_id'] = str(report_model.id)
@@ -83,14 +83,14 @@ def update_report_status(request):
     if request.user.profile.is_admin:
         if 'status' in request.POST:
             report.status = request.POST.get('status')
-            logger.debug(f"Report save called at status update! Trace: {''.join(traceback.format_stack())}")
+            # logger.debug(f"Report save called at status update! Trace: {''.join(traceback.format_stack())}")
             report.save()
             messages.success(request, "Status updated successfully.")
             request.session['viewing_report_id'] = str(report.id)
             return redirect('history:report_details')
         elif "notes" in request.POST:
             report.report_text = request.POST.get("notes")
-            logger.debug(f"Report save called at admin notes update_report_status! Trace: {''.join(traceback.format_stack())}")
+            # logger.debug(f"Report save called at admin notes update_report_status! Trace: {''.join(traceback.format_stack())}")
             report.save()
             messages.success(request, "Notes added successfully.")
             request.session['viewing_report_id'] = str(report.id)
@@ -129,7 +129,7 @@ def set_timezone(request):
         timezone = request.POST.get('timezone')
         if timezone:
             request.session['django_timezone'] = timezone
-            print("Timezone received and set:", timezone)
+            # print("Timezone received and set:", timezone)
             return JsonResponse({'status': 'success', 'message': 'Timezone updated.'})
         else:
             return JsonResponse({'status': 'error', 'message': 'No timezone provided.'}, status=400)
