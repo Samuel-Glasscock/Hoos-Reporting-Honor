@@ -143,6 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+import sys
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -150,9 +151,16 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'stream': sys.stdout,  
         },
     },
     'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        
         '': {
             'handlers': ['console'],
             'level': 'DEBUG',
