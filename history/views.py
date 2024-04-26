@@ -52,7 +52,7 @@ def report(request):
             report_model.save()
             return redirect("history:report", id=report_model.id)
         
-        if "change_status_to_pending" in request.POST:
+        if "change_status_to_pending" in request.POST and report_model.status == "NEW":
             report_model.status = "PENDING"
             report_model.save()
 
