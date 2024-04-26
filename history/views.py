@@ -59,12 +59,14 @@ def report(request):
         if "notes" in request.POST:
             report_model.report_text = request.POST.get("notes")
             logger.debug(f"Report save called at admin notes! Trace: {''.join(traceback.format_stack())}")
+            print(f"Report save called at admin notes! Trace: {''.join(traceback.format_stack())}")
             report_model.save()
             return redirect("history:report", id=report_model.id)
         
         if "change_status_to_pending" in request.POST:
             report_model.status = "PENDING"
             logger.debug(f"Report save called at status change to pending! Trace: {''.join(traceback.format_stack())}")
+            print(f"Report save called at status change to pending! Trace: {''.join(traceback.format_stack())}")
             report_model.save()
 
     request.session['viewing_report_id'] = str(report_model.id)
@@ -83,6 +85,7 @@ def update_report_status(request):
         if 'status' in request.POST:
             report.status = request.POST.get('status')
             logger.debug(f"Report save called at status update! Trace: {''.join(traceback.format_stack())}")
+            print(f"Report save called at status update! Trace: {''.join(traceback.format_stack())}")
             report.save()
             messages.success(request, "Status updated successfully.")
             request.session['viewing_report_id'] = str(report.id)
@@ -90,6 +93,7 @@ def update_report_status(request):
         elif "notes" in request.POST:
             report.report_text = request.POST.get("notes")
             logger.debug(f"Report save called at admin notes update_report_status! Trace: {''.join(traceback.format_stack())}")
+            print(f"Report save called at admin notes update_report_status! Trace: {''.join(traceback.format_stack())}")
             report.save()
             messages.success(request, "Notes added successfully.")
             request.session['viewing_report_id'] = str(report.id)
