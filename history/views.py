@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.utils import timezone
+from zoneinfo import ZoneInfo
+from django.http import JsonResponse
 
 
 def lookup(request):
@@ -108,3 +110,18 @@ def delete(request):
         return redirect("history:dashboard")
     else:
         return redirect("history:dashboard") 
+
+
+#  REFERENCES
+#  AI Agent: ChatGPT4
+#  Date: 2024-4-25
+# Prompt: "how can I access a user's local timezone without manually prompting them for it in a Django project and send it to the server for processing and displaying a datetime?"
+def set_timezone(request):
+    if request.method == 'POST':
+        timezone = request.POST.get('timezone')
+        if timezone:
+            request.session['django_timezone'] = timezone
+            return JsonResponse({'status': 'success', 'message': 'Timezone updated.'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'No timezone provided.'}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
