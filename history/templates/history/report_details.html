@@ -41,7 +41,7 @@
 </ul>
 
 <h3><span class="label-bold">Admin Feedback</span></h3>
-<p><span class="label-bold">Save Admin Notes:</span> {% if report.report_text %}{{ report.report_text }}{% else %}No feedback{% endif %}</p>
+<p><span class="label-bold">Admin Notes:</span> {% if report.report_text %}{{ report.report_text }}{% else %}No feedback{% endif %}</p>
 
 {% if user.profile.is_admin %}
 <div>
@@ -50,7 +50,7 @@
         <input type="hidden" name="report_id" value="{{ report.id }}">
         <input type="text" id="notes" name="notes"class="form-control" placeholder="Notes"/>
         <div style="margin-top: 10px;">
-            <button type="submit" class="btn btn-primary" m>Add Notes</button>
+            <button type="submit" class="btn btn-primary" m>Save Admin Notes</button>
         </div>
     </form>
 </div>
