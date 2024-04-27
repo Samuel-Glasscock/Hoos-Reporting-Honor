@@ -9,7 +9,10 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>{% block title %}{% endblock %}</title>
-    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {%
+    block header %}
+    <!-- add any links/css files here -->
+    {% endblock %}
 
     <link
       href="../../static/submit/sticky-footer-navbar.css"
@@ -58,11 +61,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'shared:home' %}"
-                >Home<span class="sr-only">(current)</span></a
-              >
-            </li>
             <li class="nav-item active">
               <a class="nav-link" href="https://honor.virginia.edu/"
                 >Honor Code<span class="sr-only">(current)</span></a
