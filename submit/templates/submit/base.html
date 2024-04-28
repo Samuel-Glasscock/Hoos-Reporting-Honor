@@ -191,7 +191,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        console.log("Detected Timezone:", timezone); // For debugging
         sendTimezoneToServer(timezone);
       });
 
@@ -211,8 +210,7 @@
           body: "timezone=" + encodeURIComponent(timezone),
         })
           .then((response) => response.text())
-          .then((data) => console.log("Timezone set successfully:", data))
-          .catch((error) => console.error("Error setting timezone:", error));
+          .catch((error) => {});
       }
     </script>
   </body>
