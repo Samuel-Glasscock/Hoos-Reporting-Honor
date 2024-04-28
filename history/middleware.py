@@ -1,5 +1,10 @@
 from django.utils import timezone
-from zoneinfo import ZoneInfo
+
+try: 
+    from zoneinfo import ZoneInfo
+except ImportError: 
+    from backports.zoneinfo import ZoneInfo
+
 
 class TimezoneMiddleware:
     def __init__(self, get_response):

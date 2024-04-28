@@ -35,10 +35,21 @@
                 </a>
             </div>
             <div class="col-md-3">
-                <a href="/login" class="btn-custom">
-                    <i class="fas fa-sign-in-alt fa-3x"></i>
-                    <span>Sign In</span>
-                </a>
+
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'account_logout' %}" method="post">
+                        <button type="submit" class="btn-custom">
+                            {% csrf_token %}
+                            <i class="fas fa-sign-out-alt fa-3x"></i>
+                            <span>Sign Out</span>
+                        </button>
+                    </form>
+                    {% else %}
+                    <a href="/login" class="btn-custom">
+                        <i class="fas fa-sign-in-alt fa-3x"></i>
+                        <span>Sign In</span>
+                    </a>
+                    {% endif %}
             </div>
         </div>
     </div>
