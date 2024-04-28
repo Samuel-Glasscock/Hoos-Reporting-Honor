@@ -30,7 +30,11 @@
         {% endif %}
       </td>
       <td>{{ report.status }}</td>
-      <td>{{ report.submission_date }}</td>
+      <td>
+        {% localtime %}
+        {{ report.submission_date }}
+        {% endlocaltime %}
+      </td>
       <td>
         <form method="POST" action="{% url 'history:report' %}">
           {% csrf_token %}
