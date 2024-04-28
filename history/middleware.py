@@ -1,8 +1,8 @@
 from django.utils import timezone
 
-try: 
+try:
     from zoneinfo import ZoneInfo
-except ImportError: 
+except ImportError:
     from backports.zoneinfo import ZoneInfo
 
 
@@ -17,4 +17,3 @@ class TimezoneMiddleware:
         else:
             timezone.deactivate()
         return self.get_response(request)
-

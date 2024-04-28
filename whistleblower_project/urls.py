@@ -21,8 +21,7 @@ from django.shortcuts import redirect
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('submit/', include('submit.urls')),
-    path('login/', include('login.urls')), # duplicate namespace as homepage, get warning when migrating on heroku
-    path('manage/', include('manage.urls')),
+    path('login/', include('login.urls')),
     path('history/', include('history.urls')),
     path('accounts/', include('allauth.urls')),
     path('', lambda request: redirect('home/', permanent=True)),

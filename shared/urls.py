@@ -6,5 +6,4 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("reports/admin", views.admin_report_list, name="admin_report_list"),
     path("render_object_from_s3/<path:s3_object_url>", views.render_object_from_s3, name="render_object_from_s3"),
-    # path('report/<int:report_id>', views.report_detail, name='report_detail'),
 ]

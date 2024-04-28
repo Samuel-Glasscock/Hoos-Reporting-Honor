@@ -1,5 +1,4 @@
-/* Sticky footer styles
--------------------------------------------------- */
+/*  https://getbootstrap.com/docs/5.1/examples/sticky-footer-navbar/ */
 html {
     position: relative;
     min-height: 100%;
@@ -9,7 +8,6 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
     font-family: 'Franklin Gothic', Arial, sans-serif;
     padding-bottom: 60px;
     min-height: 100vh; /* Ensures at least full viewport height */
@@ -18,7 +16,7 @@ body {
 }
 
 .content {
-    flex: 1; /* Allows the content area to expand and push the footer down */
+    flex: 1;
 }
 
 .footer {
@@ -33,11 +31,8 @@ body {
     font-size: 14px;
     padding-top: 0;
 }
-    /*padding: 10px 0; !* Vertical padding *!*
 
-     */
-/* navbar styles
--------------------------------------------------- */
+/* navbar styles */
 .navbar-custom {
     background-color: #151f52; /* Navy blue */
 }

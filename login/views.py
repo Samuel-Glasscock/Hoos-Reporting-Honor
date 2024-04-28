@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 
 import logging
+
 log = logging.getLogger(__name__)
+
 
 def login_view(request):
     return render(request, "login/login_page.html")
+
 
 def login_request(request):
     if request.method == "POST":
@@ -19,22 +22,6 @@ def login_request(request):
         if user is not None:
             login(request, user)
             return redirect("shared:home")
-        return render(request, "login/login_page.html", {'error': 'Unless you are a Django admin, please sign in with Google.'})
+        return render(request, "login/login_page.html",
+                      {'error': 'Unless you are a Django admin, please sign in with Google.'})
     return render(request, "shared/404.html")
-
-# def google_login_request(request):
-#     if request.user.is_authenticated:
-#         if request.user.is_superuser:
-#             return redirect("login:admin_home")
-#         else:
-#             return redirect("shared:home")
-#         # if somehow not authenticated, redirect to login page
-#     else:
-#         return redirect("login:login_view")
-
-# def admin_home(request):
-#     #Add any logic needed here, such as fetching data from the database
-#     #pass an empty dictionary to the template
-#     context = {}
-#     return render(request, 'login/admin_home.html', context)
-
