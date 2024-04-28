@@ -2,7 +2,7 @@
 {% block title %}Login | Hoos Reporting Honor{% endblock %}
 
 {% block banner %}
-    <div class="text-center mb-0" style="background-color: #f66733; padding: 25px; width: 100%;">
+    <div class="text-center mb-2" style="background-color: #f66733; padding: 25px; width: 100%;">
         <h1 style="color: white">Sign in to keep track of your reports!</h1>
     </div>
 {% endblock %}
@@ -13,6 +13,7 @@
         <div class="text-center">
             <h4>If you want to submit a report anonymously, click <a
                     href="{% url 'submit:start_submission' %}">here.</a></h4>
+            <h6>Unless you are a Django admin, please sign in with Google.</h6>
             <form action="{% url 'login:login_request' %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -35,6 +36,12 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+
             {% load socialaccount %}
             <div class="row justify-content-center" style="padding-top: 20px">
                 <div class="col-sm-6 col-lg-3 mb-4 d-flex justify-content-center">

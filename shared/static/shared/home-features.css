@@ -65,3 +65,7 @@
   height: 100%;
   position: absolute;
 }
+
+.container-with-padding {
+    padding: 0 10px; /* Adjust the padding as needed */
+}
