@@ -17,11 +17,8 @@
     Anonymous
 {% endif %}
 </p>
-{% load tz}
-{% localtime %}
 <p><span class="label-bold">Submission Date ({{current_timezone}}):</span> {{ report.submission_date }}</p>
 <p><span class="label-bold">Edit Date ({{current_timezone}}):</span> {{ report.edit_date }}</p>
-{% endlocaltime %}
 <p><span class="label-bold">Status:</span> {{ report.status }}</p>
 
 <h3><span class="label-bold">Incident Details</span></h3>
