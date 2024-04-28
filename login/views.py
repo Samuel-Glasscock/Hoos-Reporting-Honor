@@ -19,7 +19,7 @@ def login_request(request):
         if user is not None:
             login(request, user)
             return redirect("shared:home")
-        return render(request, "shared/404.html")
+        return render(request, "login/login_page.html", {'error': 'Unless you are a Django admin, please sign in with Google.'})
     return render(request, "shared/404.html")
 
 # def google_login_request(request):
