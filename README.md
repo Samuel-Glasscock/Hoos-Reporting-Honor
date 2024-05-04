@@ -5,8 +5,9 @@
 ## Table of Contents
 - [Usage](#usage)
 - [Tech Stack](#tech-stack)
-- [Contributors](#contributors)
+- [Contributions](#contributions)
 - [License](#license)
+- [Web App View](#web-app-view)
 
 ## Usage
 
@@ -28,14 +29,31 @@
 
 - **Boto3:** AWS SDK for Python that is used for configuring Amazon S3 Bucket with low level access to AWS services. (https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) 
 
-## Contributors
-__Team:__ A-22
-__Member Names and Computing IDs:__ 
-- John Defranco (qbk3xy) 
-- Henry Gao (djx3rn) 
-- Samuel Glasscock (kvh8zj) 
-- Natalie Yee (nvn5yn) 
-- Emily Zhou csz6wd()
+## Contributions
+* **John Defranco (qbk3xy)**
+
+* **Henry Gao (djx3rn)** 
+
+* **Samuel Glasscock (DevOps)**
+    * Configured Heroku for hosting project and PostGreSQL database
+    * Utilized AllAuth library and Google Developer Console for setting up Google Login capabilities
+    * Configured AWS S3 bucket for storing project static files and files uploaded as supporting documents for reports
+
+* **Natalie Yee (nvn5yn)** 
+
+* **Emily Zhou (csz6wd)**
+
 
 ## License
 If we were to release this project under a license, it would be MIT License and we would include the full text of the MIT license in a LICENSE.txt file in our project
+
+## Web App View
+Since this app is no longer live, these are provided views/flow from the site.
+![Screenshot of Home page](readme_assets/hoos_reporting_homepage.png)
+![Screenshot of Submission](readme_assets/hoos_reporting_start_submission.png)
+![Screenshot of Report](readme_assets/hoos_reporting_report_1.png)
+![Screenshot of Report](readme_assets/hoos_reporting_report_2.png)
+![Screenshot of Report Success](readme_assets/hoos_reporting_report_success.png)
+![Screenshot of Admin Dashboard](readme_assets/hoos_reporting_dashboard.png)
+![Screenshot of Report Details](readme_assets/hoos_reporting_report_view_1.png)
+![Screenshot of Admin Report Details](readme_assets/hoos_reporting_report_details_2.png)
